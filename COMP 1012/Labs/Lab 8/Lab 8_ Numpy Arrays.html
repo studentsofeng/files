@@ -1,0 +1,334 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab08.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Lab 8: Numpy Arrays</title>
+  </head>
+  <body>
+    <div class="default">
+    <style type="text/css"><!-- 
+      h2, h3 { 
+        font-family: sans-serif; 
+        font-weight: bold; 
+        border-top-width: thin; 
+        border-right-width: thin; 
+        border-bottom-width: thin; 
+        border-left-width: thin; 
+        border-bottom-style: solid; 
+        border-top-color: #FF0000; 
+        border-right-color: #FF0000; 
+        border-left-color: #FF0000; 
+      } 
+      h2 { 
+        font-size: 14pt; 
+        border-bottom-color: #FF0000; 
+      } 
+      h3 { 
+        font-size: 13pt; 
+        border-bottom-color: blue ; 
+      } 
+      .code, .codeword { 
+        font-family: monospace; 
+        font-weight: bold; 
+      } 
+      .code { 
+        font-size: 11pt ; 
+        background-color: #FFFFB0; 
+        border-top: dotted thin black; 
+        border-bottom: dotted thin black; 
+        padding-top: 1em; 
+        padding-bottom: 1em; 
+        padding-left: .5em; 
+        padding-right: .5em; 
+        margin-right: 20px; 
+        margin-left: 20px; 
+        white-space: pre;
+      } 
+      .codeword { 
+        font-size: 1em; 
+      } 
+      .builtin{
+        color: darkcyan;
+      }
+      .quote{
+        color: red;
+      }
+      .instruction {
+        color: darkcyan;
+      }
+      .output { 
+        font-family: monospace; 
+        font-size: 11pt ; 
+        background-color: E0d0a0; 
+        border-style: solid; 
+        border-width: thin; 
+        line-height: 110%; 
+        padding: 0.5em; 
+        white-space: pre;
+      } 
+      .aside { 
+        background-color: lightGrey; 
+        border: solid thin black; 
+        font-size: 10pt; 
+        margin-top: .5em; 
+        margin-bottom: .5em; 
+        margin-right: 20px; 
+        margin-left: 20px; 
+        padding-top: .5em; 
+        padding-bottom: .5em; 
+        padding-left: 1em; 
+        padding-right: 1em; 
+      } 
+      .math {
+        font-family: serif;
+      }
+      .todo {
+        color: blue;
+      }
+      td.mine, th.mine { 
+        font-family: serif ; 
+        font-size: 10 pt ; 
+        vertical-align: bottom ; 
+        text-align: center ; 
+      } 
+      a, a:link, a:visited, p, li { 
+        font-family: serif ; 
+        font-size: 12pt ; 
+        line-height: 115% ;
+      } 
+      pre { 
+        line-height: 80% ; 
+      } 
+      em{
+        font-weight: bold;
+        font-style: italic;
+      }
+      .red{
+        color: red;
+      }
+      .dkred{
+        color: darkred;
+      }
+      .grn{
+        color: green;
+      }
+      .blue{
+        color: blue;
+      }
+      .ltblue{
+        color: lightblue;
+      }
+      .blk{
+        color: black;
+      }
+      .fcn{
+        color: purple;
+      }
+      .boolean{
+        color: magenta;
+      }
+      .kwd{
+        color: orange;
+      }
+      .str{
+        color: red;
+      }
+      .fcn{
+        color: darkgreen;
+      }
+      .numpy{
+        color: saddlebrown;
+      }
+      .in{
+        color: darkblue;
+      }
+      --> 
+    </style>
+      <h1 style="font-size:20pt">COMP 1012 Lab 8</h1>
+      <p><strong>November 21 to 26,&nbsp; 2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>2-D <span class="codeword">numpy</span> arrays.</li>
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+      
+      <h2>Exercise 1: Generating 2D Arrays</h2>
+      <p>
+        Be sure to  
+        <span class="codeword">import numpy</span>
+      </p>
+      <p>
+        There are four ways we will generate 2D arrays from scratch, using the
+        following four functions:
+      </p>
+      <div class="code"> 
+<span class="numpy">np.random.random</span>(tuple)
+<span class="numpy">np.zeros</span>(tuple) 
+<span class="numpy">np.ones</span>(tuple) 
+<span class="numpy">np.array</span>(listOfLists)
+      </div>
+      <p>
+        The function 
+        <span class="codeword"><span class="numpy">np.zeros</span>(tuple)</span>
+        creates a 2-D array of <span class="codeword">float</span>s with
+        value <span class="codeword">0.0</span>, according to the dimensions in the tuple.
+        In this lab, our tuples will be 2-tuples of integers, like (10,10).
+        The functions <span class="codeword">np.ones</span> and <span class="codeword">np.random.random</span> work 
+        in the same way.
+      </p>
+      <p> We can also use <span class="codeword"><span class="numpy">np.array</span></span> as with 1D lists. Here,
+we should provide a 2D list, where each entry in the list is another list, and all such lists have the same length (to make a rectangular matrix).</p>
+      <p class="todo">
+        Try the following examples.
+      </p>
+      <div class="code blk">
+x1 = np.random.random((5,5))
+x2 = np.zeros((10,10),dtype=np.int_)
+x3 = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12]])
+      </div>
+      
+
+      <h2>Exercise 2: Indexing 2D Arrays</h2>
+
+<p>
+To index a 2D array, use a tuple with two integer indexes. For example, if <span class="codeword">A</span>
+is a 3x5 array, then <span class="codeword">A[2,4]</span> is a valid index for the array, but 
+<span class="codeword">A[4,2]</span> is not.  <span class="codeword">A.shape</span> will show the dimensions
+of any numpy array.
+</p>
+
+<p class="todo">
+Try the following examples.
+</p>
+      <div class="code blk">
+nums = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12]])
+print ("nums:\n%s" % nums)    
+print(nums.shape)
+print ( nums[3,2])
+print (nums[2,3]) 
+      </div>
+ 
+      
+      <h2>Exercise 3: Slices of 2D Arrays</h2>
+      <p>
+        2D <span class="codeword">Array</span>s can be sliced in the same way that
+        <span class="codeword">array</span>s can, 
+        except that both dimensions need to be specified.  
+      </p>
+      <p class="todo">
+        Try the following examples.
+      </p>
+      <div class="code">
+    nums = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12]])
+    nums2 = nums[1:3,1:3]                       # slice the array.
+    nums[1:3,1:3] = np.zeros(nums2.shape)       # set to zero 
+      </div>
+      <p>
+      Slices can also include a single index, to slice a row or column from an array.</p>
+      <p class="todo">
+        Write a script file with a main method to produce the following arrays:
+      </p>
+      <ul>
+
+        <li>
+          a 5x5 2D <span class="codeword">array</span> of floats that contains 0s along all  
+          four boundaries, and 1s at all other positions. That is, an array that looks like this:
+
+<div class="code">
+[[ 0.  0.  0.  0.  0.]
+ [ 0.  1.  1.  1.  0.]
+ [ 0.  1.  1.  1.  0.]
+ [ 0.  1.  1.  1.  0.]
+ [ 0.  0.  0.  0.  0.]]
+</div>
+           
+        </li>
+        <li>
+          a 10x10 2D <span class="codeword">array</span> of ints where the entry at
+          position i,j is (i+j). That is,  an array like
+<div class="code">
+[[ 0  1  2  3  4  5  6  7  8  9]
+ [ 1  2  3  4  5  6  7  8  9 10]
+ [ 2  3  4  5  6  7  8  9 10 11]
+ [ 3  4  5  6  7  8  9 10 11 12]
+ [ 4  5  6  7  8  9 10 11 12 13]
+ [ 5  6  7  8  9 10 11 12 13 14]
+ [ 6  7  8  9 10 11 12 13 14 15]
+ [ 7  8  9 10 11 12 13 14 15 16]
+ [ 8  9 10 11 12 13 14 15 16 17]
+ [ 9 10 11 12 13 14 15 16 17 18]]
+</div>
+Hint: one way is to use <span class="codeword">np.arange</span> to generate each row.
+        </li>
+
+        <li>
+          a 100x100 2D <span class="codeword">array</span> of boolean values where
+          the value at index i,j is True if j is a divisor of i and False otherwise. 
+That is, an array that looks like:
+<div class="code">
+[[False False False ..., False False False]
+ [ True  True  True ...,  True  True  True]
+ [ True False  True ..., False  True False]
+ ..., 
+ [ True False False ...,  True False False]
+ [ True False False ..., False  True False]
+ [ True False False ..., False False  True]]
+</div>
+        </li>
+      </ul>
+<p>
+For each of these arrays, you should construct them without the use of nested loops. You will probably need one or more loops for constructing the lists. Do not use np.array to construct the arrays. 
+</p>
+
+
+    </div>
+      <h2>Exercise 4: Matrix Operations</h2>
+
+<p>
+For all of the following questions, A and B are square matrices.  For each function, test your method with parameters to verify if it is working.
+</p>
+
+<ul>
+<li> The determinant of a 2x2 matrix is A is given by
+<br>
+<img src="./Lab 8_ Numpy Arrays_files/l9-2.jpg">
+<br>
+Write a function <span class="codeword">det2</span> that takes a matrix and returns the determinant of the matrix is a 2x2 matrix. Use an assertion to check the dimensions of the matrix.  You do not need a loop for this function.
+</li>
+
+<li> The determinant of a 3x3 matrix A is given by 
+<br>
+<img src="./Lab 8_ Numpy Arrays_files/l9-3.jpg">
+<br>
+ Write a function <span class="codeword">det3</span> that takes a matrix and returns the determinant if the matrix is a 3x3 matrix. Use <span class="codeword">det2</span> to compute your result. Use an assertion to check the dimensions of the matrix. 
+Hint: use slices, including steps, to get the three submatrices you need. You do not need loops.
+</li>
+
+<li>A and B are inverses of each other if A@B (the matrix product of A and B) is the identity matrix (the matrix with 1s along the main diagonal and 0s everywhere else). Write a function <span class="codeword">areInverses</span> that takes two matrices and returns True only if the matrices are inverses of each other. 
+Use assertions to verify that the matrices are square and have the same dimensions. 
+When comparing floating point numbers, use a tolerance of 1e-10.  You should not use a nested loop for this question. (It is possible to do it without a loop by using the <span class="codeword">np.eye(n)</span>, which creates an identity matrix of size n.)
+</li>
+</ul>
+
+
+  
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+''' COMP 1012  SECTION A01/A02
+    INSTRUCTOR Domaratzki, Boyer
+    ASSIGNMENT: A4 Q1
+    AUTHOR    The Instructors
+    VERSION   2016-Dec-20
+ 
+    PURPOSE: to determine least squares regression of linear data
+'''
+
+import time
+import numpy as np
+import random
+
+#.........................................................calculateLeastSquares
+def calculateLeastSquares(xx, yy):
+    '''calculate the coefficients (a, b) of least squares regression line'''
+    
+    assert type(xx) == np.ndarray, "xx is not a numpy array"
+    assert type(yy) == np.ndarray, "yy is not a numpy array"
+    assert len(xx) == len(yy), "Arrays xx and yy are different lengths"
+    muX = np.average(xx)    # average of x-values
+    muY = np.average(yy)    # average of y-values
+    aa = np.sum((yy - muY)*(xx - muX)) / np.sum((xx - muX)**2)  # coef a
+    bb = muY - aa * muX   # coef b
+    return aa, bb
+
+#..................................................................generateData
+def generateData(nn):
+    '''Generate random linear x- and y-values with added noise
+    NOTE: to scale a random value rv from [0,1) to [MIN, MAX) use:
+    rv * (MAX-MIN) + MIN'''
+    
+    MIN_AB = -100    # minimum value of coefficients
+    MAX_AB =  100    # maximum value of coefficients
+    MIN_X = 0        # minimum x-value
+    MAX_X = 250      # maximum x-value
+    VARIANCE = 100   # for generating 'noise' using normal distribution
+    
+    noise = np.random.randn(nn) * VARIANCE   # the noise vector
+    
+    # generate random values for a and b in range [-100, 100]
+    aa = random.random() * (MAX_AB-MIN_AB) + MIN_AB   #
+    bb = random.random() * (MAX_AB-MIN_AB) + MIN_AB   #
+    #print("Generating points using a = %.2f, b = %.2f" % (aa, bb))
+    
+    xx = np.random.random(nn) * (MAX_X-MIN_X) + MIN_X  # x-values
+    #xx = np.linspace(MIN_X, MAX_X, nn)  # x-values (alternate calculation)
+    yy = aa * xx + bb + noise           # y-values
+    return xx, yy
+
+#...................................................................getValidInt
+def getValidInt(lo, hi, prompt):
+    '''Prompt the user for a valid integer between lo and hi, inclusive.
+    Keep prompting until a valid input is entered.'''
+
+    # define the error messages here
+    errMsg0 = "Error: %s is not an integer\n"       #
+    errMsg1 = "Error: %s is not between %d and %d\n" % ("%s", lo, hi)  #
+
+    errMsg = '\b'                            # the current error message
+    while len(errMsg) > 0:
+        userInput = input(errMsg + prompt)   # what the user types
+        try:
+            errMsg = ''
+            choice = int(userInput)          # the user's integer
+            if choice < lo or choice > hi:
+                errMsg = errMsg1 % choice
+        except:
+            errMsg = errMsg0 % userInput
+    return choice
+
+#.......................................................................pearson
+def pearson(xx, yy, aa, bb):
+    '''Calculate the Pearson Correlation Coefficient'''
+    
+    est = aa * xx + bb           # the estimated y-values
+    muE = np.average(est)        # average of the estimated y-values
+    muY = np.average(yy)         # average of the actual y-values
+    
+    # now calculate Pearson's Correlation Coefficient
+    rr = np.sum((est - muE)*(yy - muY)) / np.sqrt(np.sum((est - muE)**2))  #
+    rr = rr / np.sqrt(np.sum((yy - muY)**2))
+    return rr
+
+#......................................................................showMenu
+def showMenu():
+    '''Display a menu to allow the user to choose what to do next'''
+    
+    MENU = '''Select one of the following options:
+  1. Generate a new random dataset.
+  2. Calculate least squares for the dataset.
+  3. Calculate the Pearson Correlation Coefficient for the data set and the estimate.
+  4. Quit.'''  # the user menu
+  
+    xx = None    # random x-values, initialized to None
+    yy = None    # random y-values, initialized to None
+    aa = None    # linear least squares coefficient
+    bb = None    # linear least squares coefficient
+    rr = None    # Pearson's correlation coefficient
+    
+    # define flags for determining if operations are in proper order
+    dataGenerated = False             # have we generated data?
+    leastSquaresGenerated = False     # have we done least squares?
+
+    # define the error messages here
+    errMsg0 = "Error: no data generated yet\n"      #
+    errMsg1 = "Error: data generated but least squares not completed\n"#
+    
+    print(MENU)
+    choice = getValidInt(1,4, "Enter your selection: ")  # get user choice
+    while choice != 4:
+        if choice == 1:
+            nn = getValidInt(0,10000, "Enter length of data: ")  # data length
+            xx, yy = generateData(nn)
+            dataGenerated = True
+            leastSquaresGenerated = False
+            print("Data Generated.")
+        elif choice == 2:
+            #if not dataGenerated:
+            if type(xx) is type(None):
+                print(errMsg0)
+            else:
+                aa, bb = calculateLeastSquares(xx,yy)
+                leastSquaresGenerated = True
+                print("Least squares line: y = %.2f x %.2f" % (aa, bb))
+        elif choice == 3:
+            if not dataGenerated:
+                print(errMsg0)
+            elif not leastSquaresGenerated:
+                print(errMsg1)
+            else:
+                rr = pearson(xx, yy, aa, bb)
+                print("Pearson correlation coefficient: %.2f" % rr)
+        print(MENU)
+        choice = getValidInt(1,4, "Enter your selection: ")
+    return
+
+#...............................................................showTermination
+def showTermination():
+    '''Display the termination message'''
+    print ("\nProgrammed by The Instructors")
+    print ("Date: " + time.ctime())
+    print ("End of processing")
+    return
+
+showMenu()
+showTermination()

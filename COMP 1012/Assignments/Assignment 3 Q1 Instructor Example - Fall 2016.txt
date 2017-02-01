@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+''' COMP 1012  SECTION A01/A02
+    INSTRUCTOR Domaratzki, Boyer
+    ASSIGNMENT: A3 Q1
+    AUTHOR    The Instructors
+    VERSION   2016-Oct-22
+ 
+    PURPOSE: to find roots of a polynomial using Newton's method
+'''
+
+import time
+
+#..................................................................evaluatePoly
+def evaluatePoly(poly, x_):
+    '''Use Horner's algorithm to evaluate the polynomial at x'''
+    
+    result = poly[-1]         # the polynomial evaluated at x
+    for coef in poly[-2::-1]:
+        result = result * x_ + coef
+    return result
+
+#................................................................findDerivative
+def findDerivative(poly):
+    '''return the derivative of the polynomial in poly'''
+    
+    return [poly[xx] * xx for xx in range(1,len(poly))]
+
+#.....................................................................findRoots
+def findRoots(poly, estimates):
+    '''using the values in estimates as starting values, call Newton's 
+    method to attempt to find roots of the polynomial specified in poly'''
+    
+    epsilon = 1.0e-20      # tolerance for zero value
+    timeout = 1000         # maximum number of iterations
+    msg1 = ("Starting at %.2f, root found at x = %.2f "
+            "giving value f(%.2f) = %11.5e") # root found message
+    msg2 = ("Starting at %.2f, no root found, last estimate was %.2f "
+            "giving value f(%.2f) = %11.5e") # root not found message
+    
+    # success and root are the results returned by newtonsMethod
+    for est in estimates:
+        success, root = newtonsMethod(poly, est, epsilon, timeout) #
+        if success:
+            print(msg1 % (est, root, root, evaluatePoly(poly, root)))
+        else:
+            print(msg2 % (est, root, root, evaluatePoly(poly, root)))
+    return
+    
+#.................................................................newtonsMethod
+def newtonsMethod(poly, x_, epsilon, timeout):
+    '''Newton's method to find a root of a polynomial'''
+    
+    derivative = findDerivative(poly)      # the derivative
+    count = 0                              # count iterations
+    polyX = evaluatePoly(poly, x_)         # evaluate the polynomial
+    derivX = evaluatePoly(derivative, x_)  # evaluate the derivative
+    while ((abs(polyX) >= epsilon) and (abs(derivX) >= epsilon) and 
+           (count < timeout)):
+        count += 1
+        x_ = x_ - polyX / derivX           # the new estimate
+        polyX = evaluatePoly(poly, x_)
+        derivX = evaluatePoly(derivative, x_)
+    converged = abs(polyX) < epsilon       # did we find a root?
+    return converged, x_                   # return success, last estimate
+    
+#..................................................................polyToString
+def polyToString(poly):
+    '''return a string representation of a polynomial in standard form
+    e.g. for poly = [2, -1, 3] return "3x^2 - 1x + 2"'''
+    
+    power = len(poly)-1            # the highest power in the polynomial
+    result = "%d" % (poly[-1])     # handle the first term outside the loop
+    result += "x" * (power > 0)
+    result += ("^%d" % power) * (power > 1)
+    
+    # handle the rest of the terms, first by adding +/-, then the coef
+    for coef in poly[-2::-1]:
+        power -= 1
+        result += (' + ', ' - ')[coef < 0] + ("%d" % abs(coef))
+        result += "x" * (power > 0)
+        result += ("^%d" % power) * (power > 1)
+    return result
+
+#...............................................................showTermination
+def showTermination():
+    """
+    Purpose: to print a final message identifying the programmer,
+    giving the date, and saying the program has finished.
+    """
+    print("Programmed by the Instructors")
+    print("Time: " + time.ctime())
+    print("End of processing.")
+    return
+    
+#..........................................................................main
+poly1 = [ 5040, 1602, 1127, -214, -75, 4, 1 ]  # test values
+print("Polynomial: ", polyToString(poly1))
+print("Derivative: ", polyToString(findDerivative(poly1)))
+findRoots(poly1, [-100] + list(range(-10, 11)) + [100])
+findRoots([ 1, 2, -3 ], [ 0, 1 ])
+findRoots([ -1, 0, 0, 0, 0, 2 ], [1, 0.5, 0])
+findRoots([ -0.03125, 0.3125, -1.25,2.5, -2.5, 1 ], [1, 0.5, 0])
+findRoots([ -30240, 0, 302400, 0, -403200, 0, 161280, 0, -23040, 0, 1024 ],
+          [0, 0.5, 1, 1.5, 1.75, 2, 2.5, 3, 3.5])
+showTermination()

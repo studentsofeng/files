@@ -1,0 +1,283 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab02.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="./COMP 1012 Lab 2_files/COMP1012Lab.css">
+    <title>COMP 1012 Lab 2</title>
+
+  </head>
+  <body>
+    <div class="default">
+      <h1 style="font-size:20pt">COMP 1012 Lab 2</h1>
+      <p><strong>September 19 to 23, 2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>Repetitive output.</li>
+        <li>Formatting output.</li>
+        <li>Using random numbers to estimate π.</li>
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+      
+      <h2>Exercise 1: Flight of an arrow</h2>
+      <img src="./COMP 1012 Lab 2_files/ArrowTrajectory.png">
+      <p>
+        You shoot an arrow upwards; <span class="todo">Print
+        out its horizontal and vertical position every second until it hits
+        the earth.</span> 
+      </p>
+      <p>Here are the details:</p>
+      <ul>
+        <li>
+          It is shot at a 45° angle from horizontal when it leaves the bow.
+        </li>
+        <li>
+          Its initial speed is 60 m/s. That means its horizontal velocity is
+          <i>V<sub>x</sub></i> = 60 cos(45°) m/s and its vertical velocity
+          is <i>V<sub>y</sub></i> = 60 sin(45°) m/s. 
+        </li>
+        <li>
+          Assume that the horizontal velocity remains unchanged, so its
+          horizontal distance after <i>t</i> seconds is <i>x<sub>t</sub></i> =
+          <i>V<sub>x</sub>t</i> m.
+        </li>
+        <li>
+          Gravity affects its vertical path. The acceleration due to gravity
+          is <i>g</i> = 9.81 m/s<sup>2</sup>. Consequently the arrow's height
+          after <i>t</i> seconds is <i>y<sub>t</sub></i> = 1.5 + <i>V<sub>y</sub>t</i>
+          - 0.5<i>gt</i><sup>2</sup> m (assuming it was 1.5 m high when
+          released). When the height is 0 or less, the arrow has landed.
+        </li>
+        <li>
+          Neglect the effects of air resistance. Because of the shape of the
+          arrow, air resistance does not have a large effect, in comparison with
+          say a cannon ball or a golf ball with the same starting trajectory.
+        </li>
+        <li>
+          You can use <span class="codeword">math.cos(angle)</span> and 
+          <span class="codeword">math.sin(angle)</span> from the 
+          <span class="codeword">math</span> library, but these functions
+          require an angle in radians. To convert from <i>d</i> degrees to
+          <i>r</i> radians, use this formula: <i>r</i> = π × <i>d</i>
+          / 180. You can get π from <span class="codeword">math.pi</span>.
+        </li>
+        <li>
+          Do this part <span class="em">without using a while loop</span>; you
+          may copy and paste the code you write for each time step to make
+          code for the next time step.
+        </li>
+      </ul>
+      <p>Typical output might look like the following:</p>
+      <div class="output">
+The arrow has speed 60 m/s and rises at a 45 degree angle
+At time 0.0 s the arrow is at position ( 0.0 ,  1.5 ) m
+At time 1.0 s the arrow is at position ( 42.42640687119285 ,  39.021406871192845 ) m
+At time 2.0 s the arrow is at position ( 84.8528137423857 ,  66.73281374238569 ) m
+At time 3.0 s the arrow is at position ( 127.27922061357856 ,  84.63422061357853 ) m
+At time 4.0 s the arrow is at position ( 169.7056274847714 ,  92.72562748477138 ) m
+At time 5.0 s the arrow is at position ( 212.13203435596427 ,  91.00703435596422 ) m
+At time 6.0 s the arrow is at position ( 254.55844122715712 ,  79.47844122715708 ) m
+At time 7.0 s the arrow is at position ( 296.98484809834997 ,  58.139848098349916 ) m
+At time 8.0 s the arrow is at position ( 339.4112549695428 ,  26.99125496954275 ) m
+At time 9.0 s the arrow is at position ( 381.8376618407357 ,  -13.967338159264415 ) m
+      </div>
+
+      <h2>Exercise 2: Controlling precision</h2>
+      <p>
+        You may have noticed that the values you calculate have varying
+        precision-that is, the number of digits used to write the number. Some
+        numbers are displayed with 15 digits, some with 16, and some with 17.
+        The precision of numbers in a Python program can be
+        controlled at either the time when the value is stored, or when it is
+        displayed.
+      </p>
+      <p>
+        To control the number of digits actually <strong><em>stored</em></strong>,
+        you can use the conversions below. We normally do this only in special
+        cases, such as when dealing with currency calculations, where we round
+        numbers to the nearest penny (2 decimal places).
+      </p>
+      <p class="code">
+Assume xx has a float value.
+  <span class="builtin">int</span>(xx) gives the integer part of the value xx, with the decimal part removed.
+  <span class="builtin">int</span>(<span class="literal">5.76</span>) → 5
+  <span class="builtin">int</span>(-<span class="literal">5.76</span>) → -5
+  <span class="builtin">round</span>(xx,nn) gives xx rounded to the nearest number with nn decimal places; 
+If you leave out nn, the default value is 0, and result is an int. If nn is given, a float is returned.
+Values that end in <span class="codeword">.5</span> are a special case; Python uses <em>round half to even</em>,
+which means the value is rounded to the nearest <em>even</em> number.
+  <span class="builtin">round</span>(<span class="literal">5.76</span>) → 6   <span class="comment"># calling round with one argument returns an int</span>
+  <span class="builtin">round</span>(<span class="literal">5.76</span>,<span class="literal">0</span>) → 6.0   <span class="comment"># calling round with two arguments returns a float</span>
+  <span class="builtin">round</span>(<span class="literal">5.76</span>,<span class="literal">1</span>) → 5.8
+  <span class="builtin">round</span>(<span class="literal">5.76</span>,-<span class="literal">1</span>) → 10.0
+  <span class="builtin">round</span>(<span class="literal">8.5</span>) → 8   <span class="comment"># round half to even rounds down in this case</span>
+  <span class="builtin">round</span>(<span class="literal">5.5</span>) → 6   <span class="comment"># round half to even rounds up in this case</span>
+      </p>
+      <p>
+        To control the way a number is <em>displayed</em> as a string, use
+        format conversions. These conversions produce a string containing the
+        number suitably formatted. The <span class="codeword">%d</span> format
+        conversion displays a number as an integer, such as <span class="codeword literal">"123"</span>. The <span class="codeword">%f</span>
+        format shows decimal fractions (e.g., <span class="codeword literal">"12.3"</span>). The <span class="codeword">%e</span>
+        format uses scientific notation (like <span class="codeword literal">"1.23e-17"</span>, which means the same as 1.23 ×
+        10<sup>-17</sup>). The <span class="codeword">%g</span> format
+        conversion is a convenient way to display a number with a minimum
+        number of digits (e.g., 
+        <span class="codeword">"%g" % <span class="literal">6.0</span></span>
+        appears as <span class="codeword">"<span class="literal">6</span>"</span> and 
+        <span class="codeword">"%g" % <span class="literal">0.00000017</span></span> gives 
+        <span class="codeword">"<span class="literal">1.7e-7</span>"</span>). 
+      </p>
+      <p>
+        In addition, you can use width specifiers between the 
+        <span class="codeword">%</span> and the format code to determine how wide a
+        field will be. Here are some examples, using vertical bars to show
+        which characters are the result of the format code:
+      </p>
+      <p class="code"> 
+<span class="string">"|%g|"</span> % <span class="literal">163.78901</span> → <span class="string">'|163.789|'</span>
+<span class="string">"|%f|"</span> % <span class="literal">163.78901</span> → <span class="string">'|163.789010|'</span>
+<span class="string">"|%e|"</span> % <span class="literal">163.78901</span> → <span class="string">'|1.637890e+02|'</span>
+<span class="string">"|%d|"</span> % <span class="literal">163.78901</span> → <span class="string">'|163|'</span> <span class="comment"># note there is no rounding</span>
+<span class="string">"|%8.3g|"</span> % <span class="literal">163.78901</span> → <span class="string">'|     164|'</span> <span class="comment"># field of width 8, with 3 digits</span>
+<span class="string">"|%8.3f|"</span> % <span class="literal">163.78901</span> → <span class="string">'| 163.789|'</span> <span class="comment"># field of width 8, with 3 decimal places</span>
+<span class="string">"|%8.2e|"</span> % <span class="literal">163.78901</span> → <span class="string">'|1.64e+02|'</span> <span class="comment"># field of width 8, with 2 decimal places</span>
+<span class="string">"|%8d|"</span>   % <span class="literal">163.78901</span> → <span class="string">'|     163|'</span> <span class="comment"># field of width 8</span>
+<span class="string">"|%2d|"</span>   % <span class="literal">163.78901</span> → <span class="string">'|163|'</span> <span class="comment"># if a number won't fit, the field size is expanded</span> 
+      </p>
+      <p> 
+        Notice that <span class="codeword">g</span>, 
+        <span class="codeword">f</span> and <span class="codeword">e</span>
+        conversions automatically <em>round the last digit shown</em> when
+        other digits are not shown. In contrast, the 
+        <span class="codeword">d</span> conversion simply <em>truncates digits</em>
+        after the decimal point, with no rounding. 
+      </p>
+      <p class="todo">
+        Modify your solution to Exercise 2 to line up the output in neat
+        columns, so that all decimal points and the number of digits after the
+        decimal points line up vertically. You may use a loop here. Your
+        output should show a number of decimal places that represents the
+        accuracy of your values. Try it once with decimal notation, and again
+        with scientific notation. Then, try it again, showing only (truncated)
+        integers in neat columns. How would you get rounded integers? 
+      </p>
+      
+      <h2>Exercise 3: Using Random Numbers to Estimate π</h2>
+      <p> 
+        Random numbers are used frequently in the real world: lotteries
+        (randomly selected numbers), board games (rolling a die), or card
+        games (shuffled decks of cards). Without random numbers these games
+        would not be very interesting. 
+      </p>
+      <p>
+        Random numbers can be simulated on a computer using a
+        <strong>pseudo-random generator</strong>. For example, if you 
+        <span class="codeword">import random</span> into your script, a call to
+        <span class="codeword">random.random()</span> returns a float between
+        0 and 1, where every 16-digit decimal fraction in this interval is
+        equally likely to occur. Note that the upper bound 1 is guaranteed
+        never to occur, although you could get 0.999999999999999.
+      </p>
+      <div class="aside"> 
+        Pseudo-random numbers are a little different from 
+        <em>truly random</em> numbers. If you have time some extra time at 
+        the end of the lab take a look at the 
+        <a href="http://www.random.org/">http://www.random.org</a> website for
+        more information about the difference between pseudo-random and truly
+        random numbers. 
+      </div>
+      <p> 
+        <span class="todo">Create a new script that uses a 
+        <span class="codeword">while</span>
+        loop to generate a sequence of <em>x</em> and <em>y</em> values
+        between 0 and 1. </span>Assume that <em>x</em> is the horizontal
+        position and <em>y</em> is the vertical position of a dart thrown at
+        the top right corner of a square 'dartboard' (see figure below).
+      </p>
+      <img src="./COMP 1012 Lab 2_files/EstimatePi.jpg" alt="" align="right" width="200">
+      <p>
+        The circle shown has a radius of 1.0 units, and so the whole circle has
+        an area of π square units. This corner of the circle has an area of π/4
+        square units (approximately equal to 0.785 square units). The area of
+        the square shown is 1.0 square units. So a random point in the square
+        has about a 78.5% probability of landing inside the circle.
+      </p>
+      <p>
+        If we generate 100 points, and 77 of them fall inside the circle, then
+        our estimate of π is 4.0 * 77 / 100 = 3.08. If we generate 1000 points
+        and 791 of them fall inside the circle, our estimate of π is 4.0 * 791 /
+        1000 = 3.164. 
+      </p>
+      <p>
+        How do we count how many points are inside the circle? Use a 
+        <span class="codeword">while</span>
+        loop to generate each <em>x</em> and <em>y</em> point with 
+        <span class="codeword">random.random</span>.
+        Inside the loop, for each (<em>x</em>, <em>y</em>) point calculate <em>p</em>
+        = (<em>x</em><sup>2</sup> + <em>y</em><sup>2</sup> &lt; 1). This 
+        <span class="codeword">boolean</span> value is either 
+        <span class="codeword">True</span>
+        or <span class="codeword">False</span>, indicating whether (<em>x</em>,
+        <em>y</em>) is inside the circle or not. Add the value <em>p</em> to a
+        total for each point. The value <span class="codeword">True</span> will
+        add 1 to the total, and <span class="codeword">False</span> will add 0,
+        because Python automatically converts their values if a number is
+        needed. As a result, the total will count the number of random points
+        inside the circle.
+      </p>
+      <p class="todo">
+        First set the <span class="codeword">while</span> loop to generate
+        1000 values and see what kind of estimate you print out. Can you
+        change the while loop to keep working until you repeatedly get a π
+        estimate between 3.1410 and 3.1420? How many points does that take?
+        Run your script several times.
+      </p>
+      <p>
+        An example in the Week 2 notes shows you how to estimate π using a
+        power series. That approach is much more accurate and uses far fewer
+        computations than this one.
+      </p>
+      <p>
+        Just for information, the code used to generate the plot is shown
+        below. Do not expect to understand all of it yet. It is often handy to
+        be able to plot the data you generate, as we shall see later in the
+        course.
+      </p>
+      <p class="code"> 
+<span class="keyword">import</span> math 
+<span class="keyword">import</span> random
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+numPoints = <span class="literal">200</span>
+xVals = [random.random() <span class="keyword">for</span> jj <span class="keyword">in</span> <span class="keyword">range</span>(numPoints)]
+yVals = [random.random() <span class="keyword">for</span> jj <span class="keyword">in</span> xVals]
+xCircle = [(numPoints - jj) / <span class="keyword">float</span>(numPoints) <span class="keyword">for</span> jj <span class="keyword">in</span> <span class="keyword">range</span>(numPoints+1)]
+yCircle = [math.sqrt(<span class="literal">1.0</span> - xx**<span class="literal">2</span>) <span class="keyword">for</span> xx <span class="keyword">in</span> xCircle]
+
+plt.plot(xVals,yVals,<span class="string">"bo"</span>, xCircle, yCircle, <span class="string">"r"</span>)
+plt.show() 
+      </p>
+    </div>
+    
+  
+
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

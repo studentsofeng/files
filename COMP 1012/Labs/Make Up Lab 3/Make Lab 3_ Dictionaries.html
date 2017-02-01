@@ -1,0 +1,275 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/LabM3.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Make Lab 3: Dictionaries</title>
+  </head>
+  <body>
+    <div class="default">
+    <style type="text/css"><!-- 
+      h2, h3 { 
+        font-family: sans-serif; 
+        font-weight: bold; 
+        border-top-width: thin; 
+        border-right-width: thin; 
+        border-bottom-width: thin; 
+        border-left-width: thin; 
+        border-bottom-style: solid; 
+        border-top-color: #FF0000; 
+        border-right-color: #FF0000; 
+        border-left-color: #FF0000; 
+      } 
+      h2 { 
+        font-size: 14pt; 
+        border-bottom-color: #FF0000; 
+      } 
+      h3 { 
+        font-size: 13pt; 
+        border-bottom-color: blue ; 
+      } 
+      .code, .codeword { 
+        font-family: monospace; 
+        font-weight: bold; 
+      } 
+      .code { 
+        font-size: 11pt ; 
+        background-color: #FFFFB0; 
+        border-top: dotted thin black; 
+        border-bottom: dotted thin black; 
+        padding-top: 1em; 
+        padding-bottom: 1em; 
+        padding-left: .5em; 
+        padding-right: .5em; 
+        margin-right: 20px; 
+        margin-left: 20px; 
+        white-space: pre;
+      } 
+      .codeword { 
+        font-size: 1em; 
+      } 
+      .builtin{
+        color: darkcyan;
+      }
+      .quote{
+        color: red;
+      }
+      .instruction {
+        color: darkcyan;
+      }
+      .output { 
+        font-family: monospace; 
+        font-size: 11pt ; 
+        background-color: E0d0a0; 
+        border-style: solid; 
+        border-width: thin; 
+        line-height: 110%; 
+        padding: 0.5em; 
+        white-space: pre;
+      } 
+      .aside { 
+        background-color: lightGrey; 
+        border: solid thin black; 
+        font-size: 10pt; 
+        margin-top: .5em; 
+        margin-bottom: .5em; 
+        margin-right: 20px; 
+        margin-left: 20px; 
+        padding-top: .5em; 
+        padding-bottom: .5em; 
+        padding-left: 1em; 
+        padding-right: 1em; 
+      } 
+      .math {
+        font-family: serif;
+      }
+      .todo {
+        color: blue;
+      }
+      td.mine, th.mine { 
+        font-family: serif ; 
+        font-size: 10 pt ; 
+        vertical-align: bottom ; 
+        text-align: center ; 
+      } 
+      a, a:link, a:visited, p, li { 
+        font-family: serif ; 
+        font-size: 12pt ; 
+        line-height: 115% ;
+      } 
+      pre { 
+        line-height: 80% ; 
+      } 
+      em{
+        font-weight: bold;
+        font-style: italic;
+      }
+      .red{
+        color: red;
+      }
+      .dkred{
+        color: darkred;
+      }
+      .grn{
+        color: green;
+      }
+      .blue{
+        color: blue;
+      }
+      .ltblue{
+        color: lightblue;
+      }
+      .blk{
+        color: black;
+      }
+      .fcn{
+        color: purple;
+      }
+      .boolean{
+        color: magenta;
+      }
+      .kwd{
+        color: orange;
+      }
+      .str{
+        color: red;
+      }
+      .fcn{
+        color: darkgreen;
+      }
+      .numpy{
+        color: saddlebrown;
+      }
+      .in{
+        color: darkblue;
+      }
+      --> 
+    </style>
+  
+    <div class="default">
+      <h1 style="font-size:20pt">COMP 1012 Makeup Lab 3</h1>
+      <p><strong>December 5-9, 2016<br>
+        </strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>Dictionaries.</li>
+        
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+     
+
+      <h2>Exercise 1: Dictionary Exercise</h2>
+      <p>
+        A dictionary is like an array where each stored <em>key</em> has a value associated
+        with it. Integers and strings make good keys. 
+        <span class="todo">
+          Type <span class="codeword">import this</span> into your Python shell to see
+          the poem called "<span style="font-style: italic;">The Zen of Python</span>"
+          , by Tim Peters. Perform the following steps:
+        </span>
+      </p>
+      <ul>
+        <li>
+          Copy and paste the text of this poem into a script file, and assign
+          it to a variable, using triple quotes to enclose it. 
+        </li>
+        <li>
+          Convert it to lower case (using <span class="codeword">.lower()</span>), and split the text into a list of words.
+          Print the list.
+        </li>
+        <li>
+          Create a new dictionary (e.g., 
+          <span class="codeword">dictWords = {}</span>). Loop over the words in the list, 
+          and count the number of
+          times each one appears. That is, for each word, consult the entry in
+          dict with that key (<span class="codeword">dictWords[word]</span>). If
+          it doesn't exist (<span class="codeword">word not in dictWords</span>), 
+          create it and give in an initial value of 1 (e.g., 
+          <span class="codeword">dictWords[word] = 1</span>). 
+          If it does already exist, increase its value by 1.
+        </li>
+        <li>
+          Print the unique words of the poem 
+          (<span class="codeword">dictWords.keys()</span>).
+        </li>
+      </ul>
+      <br>
+
+      <h2>Exercise 2: Dictionary manipulation</h2>
+      <p>
+      Using the same poem as before, create a dictionary that counts how many words
+      start with each letter.
+      </p><ul>
+        <li>
+          Create another new dictionary (e.g., 
+          <span class="codeword">letterCounts= {}</span>). 
+        </li>
+        <li> Loop over the words in the list, 
+          and count the number of
+          words that start with each letter. 
+        </li>
+   
+        <li>
+           Find the most frequent starting letter for words in the poem, by using a loop to find the maximum value in
+the dictionary. 
+        </li>
+      </ul>
+      <br>
+
+      <h2>Exercise 3: Create a bar chart</h2>
+      <p>
+      This material is <b>not</b> testable, and is enrichment only. 
+      Using the data from the <span class="codeword">lettersCounts</span> dictionary, create a bar chart using
+      matplot lib. An example is shown on the right.
+<img src="./Make Lab 3_ Dictionaries_files/figure_1.png" alt="" width="450" align="right">
+
+      </p><ul>
+        <li>
+          Access an subplot using 
+        <div class="code">
+        fig, ax = mpl.subplots()
+        </div> 
+          
+        </li>
+        <li> Set a bar chart using the <span class="codeword">ax.bar</span> function. It takes three parameters:
+	<ol>
+        <li> A list or numpy array of the x-coordinates of the left ends of the bars</li>
+        <li> A list or numpy array of the heights of each of the bars.</li>
+        <li> A floating point number giving the width of each bar.</li> 
+	</ol>
+        
+        </li>
+        <li> Create x axis labels (ticks) with the following two commands:
+        <ol>
+        <li> <span class="codeword">ax.set_xticks</span> that takes a single parameter, which is a list or numpy aray of the x-coordinates of the centres of the bars, where the labels will be placed.</li>
+        <li> <span class="codeword">ax.set_xticklabels</span> that takes a single parameter, which is a list or numpy array of the labels for the bottoms of the bars.</li>
+        </ol>
+   
+      </li></ul>
+      <br>
+
+ 
+
+      <hr> </div>
+  
+
+
+
+</div></body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

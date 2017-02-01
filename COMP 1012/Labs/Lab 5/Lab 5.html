@@ -1,0 +1,365 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab05.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Lab 5</title>
+    <link rel="stylesheet" type="text/css" href="./Lab 5_files/COMP1012Lab.css">
+  </head>
+  <body>
+    <div class="default">
+
+      <h1 style="font-size:20pt">COMP 1012 Lab 5</h1>
+      <p><strong>Oct. 24 to 28,&nbsp;2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>For loops.</li>
+        <li>Nested loops.</li>
+        <li>Function definitions</li>
+        <li>Drawing shapes</li>
+      </ul>
+      
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+
+
+      <h2>Exercise 1: Printing shapes.</h2>
+      <p> 
+        In this exercise you will write a Python script that will print out
+        several different shapes. In each case, create the shape row by row,
+        using one <span class="codeword">for</span> loop to advance the rows,
+        and one or more <span class="codeword">for</span> loops to add the
+        characters in a row to the end of the current string. <em>Make your
+        code work for several different sizes,</em> including the one
+        specified in each case. Since this is an exercise in using nested 
+        <span class="codeword">for</span> loops, you are <em>not allowed</em>
+        to use <span class="codeword">5*'X'</span> nor any 
+        <span class="codeword">if</span> statements.
+      </p>
+      <p>
+        Here are the figures to print:
+      </p>
+      <ol>
+        <li> 
+          <strong>An empty square of size 8 using "*" :</strong>
+          <div class="output">
+A HOLLOW SQUARE OF SIZE 8
+    
+    
+********
+*      *
+*      *
+*      *
+*      *
+*      *
+*      *
+********
+          </div>
+          <div class="aside">
+            Hmmm... It doesn't look much like a square, does
+            it? The space allocated to each character in this font is actually
+            rectangular, so an <em>n</em>×<em>n</em> array of characters is
+            rectangular rather than square. To make the exercise more
+            challenging, you could figure out a correction factor by which you
+            multiply the width to make your designs look more like squares. But
+            first try these exercises without this complication. 
+          </div>
+          <p>
+            Here's an example of the code to produce this square (without any
+            corrections to make it look more square). The variable 
+            <span class="codeword">row</span>
+            is assigned the number of each row, but it is not actually used for
+            anything. It is basically a counter. Note how all the characters to
+            print a row of the the hollow square are held by a string variable 
+            <span class="codeword">text</span>. 
+          </p>
+          <p>
+            You'll have to figure out the rest of the examples for yourself.
+          </p>
+          <div class="code">
+SIZE = <span class="literal">8</span> ; CHAR = <span class="string">'*'</span>  <span class="comment"># This code will work for a wide range of SIZE values</span>
+<span class="comment"># top row is solid</span>
+<span class="keyword">for</span> row <span class="keyword">in</span> [ <span class="literal">0</span> ] :
+    text = <span class="string">""</span>
+    <span class="keyword">for</span> col <span class="keyword">in</span> <span class="builtin">range</span>(SIZE) :
+        text += CHAR
+    <span class="builtin">print</span> (text)
+<span class="comment"># middle rows have a left character, blanks, and right character</span>
+<span class="keyword">for</span> row <span class="keyword">in</span> <span class="builtin">range</span>(<span class="literal">1</span>, SIZE - <span class="literal">1</span>) :
+    text = CHAR
+    <span class="keyword">for</span> col <span class="keyword">in</span> <span class="builtin">range</span>(SIZE - <span class="literal">2</span>) :
+        text += <span class="string">' '</span>
+    text += CHAR
+    <span class="builtin">print</span> (text)
+<span class="comment"># bottom row is solid</span>
+<span class="keyword">for</span> row <span class="keyword">in</span> [ SIZE - <span class="literal">1</span> ] :
+    text = <span class="string">""</span>
+    <span class="keyword">for</span> col <span class="keyword">in</span> range(SIZE) :
+        text += CHAR
+    <span class="builtin">print</span> (text)
+          </div>
+        </li>
+        <li> 
+          <strong>A solid right triangle of size 12 with 'T':</strong>
+          <p>
+            Output a right triangle where the hypotenuse goes from the top
+            right of the triangle to the bottom left using the dimension 12 and
+            character 'T'. Remember: your code should work for other sizes too
+            if you change the value assigned to <span class="codeword">SIZE</span>,
+            and for other characters if you change what you assign to 
+            <span class="codeword">CHAR</span>
+          </p>
+          <div class="output">
+A SOLID RIGHT TRIANGLE OF SIZE 12
+
+
+TTTTTTTTTTTT
+TTTTTTTTTTT
+TTTTTTTTTT
+TTTTTTTTT
+TTTTTTTT
+TTTTTTT
+TTTTTT
+TTTTT
+TTTT
+TTT
+TT
+T
+          </div>
+        </li>
+        <li> 
+          <strong>A solid mirrored right triangle of size 9 with "$":</strong>
+          <p>
+            Output a right triangle where the hypotenuse goes from the top left
+            of the triangle to the bottom right using the dimension 9 and
+            character '$': 
+          </p>
+          <div class="output">
+A SOLID MIRRORED RIGHT TRIANGLE OF SIZE 9
+
+
+$$$$$$$$$
+ $$$$$$$$
+  $$$$$$$
+   $$$$$$
+    $$$$$
+     $$$$
+      $$$
+       $$
+        $
+          </div>
+        </li>
+      </ol>
+      
+      
+      <h2>Exercise 2: Defining a function to print a shape.</h2>
+      <p>
+        The essence of programming is to write code that can solve problems
+        where you don't know all the details in advance. Once your code gets the
+        details, it should be able to come up with an answer by adjusting
+        automatically to those details. We often code this self-adjusting code
+        in a <em>function</em> with <em>parameters</em>. When other
+        code calls the function, that code must provide <em>arguments</em>,
+        which are values that are matched one-by-one to the corresponding
+        parameters. The arguments provide the missing details, and the function
+        solves the problem that is now fully specified.
+      </p>
+      <p>
+        For example, the following function will draw a hollow square of a
+        specified size, using whatever character you want. Copy the code from
+        this webpage and paste it into Anaconda to create the function. A call to
+        <span class="codeword">drawSquare(8,'*')</span> should produce the same
+        results as the example above. Try it for several sizes, including 0, 1,
+        2, and 3. Can you figure out how it handles these small cases, when the
+        code has three <span class="codeword">for</span> loops, and looks like
+        it should always print at least three rows? What happens when you pass
+        an argument with several characters as the second argument? How would
+        you fix it?
+      </p>
+      <div class="code">
+<span class="keyword">def</span> <span class="definition">drawSquare</span>(SIZE, CHAR) :
+    <span class="comment"># top row is solid</span>
+    <span class="keyword">for</span> row <span class="keyword">in</span> range(<span class="literal">1</span>) :
+        text = <span class="string">""</span>
+        <span class="keyword">for</span> col <span class="keyword">in</span> range(SIZE) :
+            text += CHAR
+        <span class="builtin">print</span> (text)
+    <span class="comment"># middle rows have a left character, blanks, and right character</span>
+    <span class="keyword">for</span> row <span class="keyword">in</span> range(<span class="literal">1</span>, SIZE - <span class="literal">1</span>) :
+        text = CHAR
+        <span class="keyword">for</span> col <span class="keyword">in</span> range(SIZE - <span class="literal">2</span>) :
+            text += <span class="string">' '</span>
+        text += CHAR
+        <span class="builtin">print</span> (text)
+    <span class="comment"># bottom row is solid</span>
+    <span class="keyword">for</span> row <span class="keyword">in</span> range(max(SIZE - <span class="literal">1</span>, <span class="literal">1</span>), SIZE) :
+        text = <span class="string">""</span>
+        <span class="keyword">for</span> col <span class="keyword">in</span> range(SIZE) :
+            text += CHAR
+        <span class="builtin">print</span> (text)
+      </div>
+
+      <p>
+        Figure out how to write a function to draw the following example. Put
+        the function definition in a file that you can run. Running the file
+        creates the function. You can then call it from the command line. Try
+        calling your function with different argument values, including the ones
+        specified.
+      </p>
+      <ol>
+        <li> 
+          <strong>A backslash-square of size 10 with "\" :</strong>
+          <p>
+            Output a solid square with a blank <span class="codeword">'\'</span>
+            running through it, using the dimension 10 and character '\'. 
+            <span style="font-weight: bold; font-style: italic;">WARNING</span>:
+            because '\' is used as an 'escape' character in codes like '\n' and
+            '\t', you need to use '\\' to insert a backslash into a string.
+          </p>
+          <div class="output">
+A SOLID SQUARE WITH A BLANK SLASH
+
+
+ \\\\\\\\\
+\ \\\\\\\\
+\\ \\\\\\\
+\\\ \\\\\\
+\\\\ \\\\\
+\\\\\ \\\\
+\\\\\\ \\\
+\\\\\\\ \\
+\\\\\\\\ \
+\\\\\\\\\ 
+          </div>
+        </li>
+      </ol>
+      
+      
+      <h2>Bonus Exercise: Complex shapes.</h2>
+      <p> 
+        If you were able to finish the previous exercises within lab time try
+        to write some additional functions to print out more complex shapes. The
+        shapes will require more thought, but the conditions are the same: no 
+        <span class="codeword">if</span>s and use one or more nested loops for each.
+        If you weren't able to get to these in the lab time, be sure to try
+        them out on your own time to get some extra practice. In each case
+        write a function in a script file that can be used to draw the
+        designated shape, with a specified size and character.
+      </p>
+      <ol>
+        <li> 
+          <strong>A reverse triangle of dimensions 8x16 with "*":</strong>
+          <p>
+            Output a rectangle that is twice as wide as high made of "*"
+            characters, overlaid with a blank triangle: 
+          </p>
+          <div class="output">
+AN 8X16 RECTANGLE WITH EMBEDDED TRIANGLE
+
+
+**************** 
+*******  ******* 
+******    ****** 
+*****      ***** 
+****        **** 
+***          *** 
+**            ** 
+*              *
+          </div>
+        </li>
+        <li> 
+          <strong>The letter 'X' using 'Y' of size 13 </strong>
+          <p> 
+            This method should create an 'X' of size 13 (with only one Y where
+            the two diagonals cross): 
+          </p>
+          <div class="output">
+THE LETTER 'X' OF SIZE 13
+
+
+Y           Y
+ Y         Y
+  Y       Y
+   Y     Y
+    Y   Y
+     Y Y
+      Y
+     Y Y
+    Y   Y
+   Y     Y
+  Y       Y
+ Y         Y
+Y           Y
+          </div>
+        </li>
+        <li> 
+          <strong>The letter 'X' of size 8 against a repeating background</strong>
+          <p> 
+            This method should create a solid square of size 8 using
+            repetitions of the characters in the string "eight", and superimpose
+            a blank letter 'X' on top of it: 
+          </p>
+          <div class="output">
+THE LETTER 'X' AGAINST A REPEATING BACKGROUND IN A FRAME
+
+
+ ________
+| ightei |
+|h eigh e|
+|ig te gh|
+|tei  tei|
+|ght  ght|
+|ei ht ig|
+|h eigh e|
+| ghteig |
+ --------
+           </div>
+        </li>
+        <li> 
+          <strong>The letter 'W' of size 15 </strong>
+          <p> 
+            This method should create a the letter 'W' with legs 2 characters
+            wide using 'W' characters in a 15x15 square: 
+          </p>
+          <div class="output">
+THE LETTER 'W' OF SIZE 15
+
+
+WW           WW
+WW           WW
+ WW         WW
+ WW         WW
+ WW         WW
+ WW         WW
+  WW       WW
+  WW  WWW  WW
+   WW WWW WW
+   WW WWW WW
+   WW WWW WW
+    WWWWWWW
+    WWW WWW
+    WWW WWW
+    WWW WWW
+          </div>
+        </li>
+      </ol>
+  
+
+
+</div></body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

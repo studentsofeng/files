@@ -1,0 +1,590 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/LabM1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Make-Up Lab 1</title>
+    <link rel="stylesheet" type="text/css" href="./Make-Up Lab 1_files/COMP1012Lab.css">
+  </head>
+  <body>
+    <div class="default">
+
+    
+      <h1 style="font-size:20pt">COMP 1012 Make-up Lab 1</h1>
+      <p><strong>Oct 11 to 14,&nbsp;2016</strong></p>
+      <div class="aside" style="font-size:12pt">
+        You can make up for a lab you have missed or will miss. Even if you
+        are not planning on missing any labs.
+      </div>
+      
+      <h2>Material covered:</h2>
+      <ul>
+        <li>
+          <span class="codeword">
+          <a href="http://www.cs.umanitoba.ca/~comp1012/Code/QuizMaster7_61.py">QuizMaster7.61</a></span>
+        </li>
+      </ul>
+      
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+
+      <h2>Exercise 1: Predict the output and <span class="codeword">QuizMaster</span>.</h2>
+      <p>
+        Sample midterm tests have been posted on the main page of the COMP1012
+        website. There are versions without answers to work through, and
+        versions with answers to check.
+      </p>
+      <p>
+        The first question on each sample midterm is of the type 
+        <em>"Predict the output"</em>. Some sample code is given, and you must predict
+        what the code will print. We find students do well on these questions
+        when they practise with <span class="codeword">QuizMaster</span>. To
+        encourage you, at least three of the questions of this type on the
+        midterm will be taken from <span class="codeword">QuizMaster</span>. 
+      </p>
+      <p>
+        In addition, we will have at least one question taken from 
+        <span class="codeword">QuizMaster</span> where you will be shown a
+        mathematical expression and asked to give code for it.
+      </p>
+      <p>
+        If you encounter any problems with <span class="codeword">QuizMaster7</span>,
+        send an e-mail to your instructor. Feel free to examine the code and
+        even suggest improvements.
+      </p>
+      <p>
+        The following sections discuss problems students might have with the
+        different categories of questions, and how to resolve them.
+      </p>
+      
+      <h3>QUESTIONS ON SIMPLE EXPRESSIONS</h3>
+      <div class="code"> 
+<span class="blue">What is printed by
+
+print (4**3 / 3 // 2)  ?</span> 
+
+10.
+<span class="blue">Correct!</span>
+      </div>
+      <p>
+        In this section the questions involve small integers (and occasional
+        floats) and the basic math operations: 
+        <span class="codeword"> +, -, *, /, //, % </span> and 
+        <span class="codeword">**</span>. There are no
+        brackets, so you need to know the precedence with which these operators
+        are evaluated. In brief, there are three rules, as covered by the
+        acronym <b>BEDMAS</b> (meaning, <b>B</b>rackets,
+        <b>E</b>xponentiation, <b>D</b>ivision and <b>M</b>ultiplication,
+        <b>A</b>ddition and <b>S</b>ubtraction):
+      </p>
+      <ol>
+        <li>
+          <em>Evaluate powers (exponentiation) first, <i>right to left</i>.</em><br>
+          That is, <span class="codeword">2**3**4</span> is the same as 
+          <span class="codeword">2**(3**4)</span>, which is the huge number 
+          <span class="codeword">2417851639229258349412352</span>,
+          <b><i>NOT</i></b> <span class="codeword">(2**3)**4</span>, which
+          yields <span class="codeword">8**4 = 4096</span>.
+        </li>
+        <li>
+          <em>Evaluate multiplications and division next, left to right.</em><br>
+          So <span class="codeword">1 + 2 * 3 // 4 % 7</span> is the same as 
+          <span class="codeword">1 + (((2 * 3) // 4) % 7)</span>, with the addition
+          done last.
+        </li>
+        <li>
+          <em>Evaluate additions and subtractions next, left to right.</em><br>
+          The expression <span class="codeword">1 - 2 * 4 - 2**3 / 2</span> is
+          done as follows:
+          <ul>
+            <li>
+              First the power, leaving <span class="codeword">1 - 2 * 4 - 8 / 2</span>.
+            </li>
+            <li>
+              Then the multiplications and divisions, left to right, leaving 
+              <span class="codeword">1 - 8 - 4.0</span>.
+            </li>
+            <li>
+              Then the additions and subtractions left to right, giving 
+              <span class="codeword">(1 - 8) - 4.0 = -11.0</span>.
+            </li>
+          </ul>
+        </li>
+      </ol>
+      <p>
+        One additional consideration with the division operators is the
+        possibility of dividing by 0. Python has a rule: you cannot follow 
+        <span class="codeword">/, //</span> or <span class="codeword">%</span> by 
+        <span class="codeword">0</span>. If that occurs, the answer will be an
+        error, and you should enter <span class="codeword">Error</span> as your
+        response. 
+      </p>
+      <p>
+        If the expression involves a <span class="codeword">float</span>
+        constant (like <span class="codeword">5.</span>), then the final result
+        of the expression will be <span class="codeword">float</span> as well.
+        Enter the result with a decimal point. With regard to division, remember:
+        </p><ul>
+          <li>
+            that the <span class="codeword">//</span> operator <em>always</em>
+            produces an integer value, but if one of the operands is float,
+            the result will be of 
+            <span style="text-decoration:underline;">type</span> 
+            <span class="codeword">float</span>.
+          </li>
+          <li>
+            that the <span class="codeword">/</span> operator <em>always</em>
+            produces a result of
+            <span style="text-decoration:underline;">type</span> 
+            <span class="codeword">float</span>, even if both of the operands are of
+            <span style="text-decoration:underline;">type</span> 
+            <span class="codeword">int</span>.
+          </li>
+        </ul>
+      <p></p>
+      <div class="output blue">
+<span class="blk">EXAMPLES:</span>
+
+What is printed by
+print (0**1 // 2 / 4)   ?  <span class="comment"># Hint: (0**1) // 2 / 4 [/ always produces a float]</span>
+<span class="blk">0.0</span>
+Correct!
+
+What is printed by
+print (4. % 3 - 2 * 3)   ?  <span class="comment"># Hint: (4. % 3) - (2 * 3)</span>
+<span class="blk">-5.0</span>
+Correct!
+
+What is printed by
+print (4 - 1 + 1 // 3)   ?  <span class="comment"># Hint: 4 - 1 + (1 // 3) [int // int produces int]</span>
+<span class="blk">3</span>
+Correct!
+
+What is printed by
+print (2 % 0 % 2 * 5)   ?  <span class="comment"># Hint: any of /0, //0 or %0 will cause an error</span>
+<span class="blk">Error</span>
+Correct!
+</div>
+      
+      <h3>QUESTIONS ON CODING EXPRESSIONS</h3>
+      <p class="graphic">
+      <img src="./Make-Up Lab 1_files/Makeup1Expr1.png" alt="expression">
+      </p>
+      
+      <div class="code blue"> 
+NOTE: use xx to represent x, aa for a, etc.
+
+Enter a Python expression to evaluate this math expression:<br>
+1. <span class="blk" "="">(9 + bb) * 4</span>
+No, the expression is: <br>
+'((-3.) / 2. + 10. + math.floor(bb)) * math.floor(4.)'
+Your expression failed on the following case: 
+
+case result bb
+0    74     10.9
+
+Your expression gave the result: 79.6
+Hit Enter to continue ... 
+      </div>
+      <p>
+        This example illustrates several features of this type of question. 
+      </p>
+      <ul>
+        <li>
+          <em>The expression to code</em> is shown as a graphics file in
+          another window. It is written out as a mathematical expression, and
+          may involve functions as well as mathematical operations. If you can't
+          get your computer to display the equation, try changing the default
+          application your computer uses to open png files. If that doesn't
+          work, try displaying graphics in the console (Tools - Preferences - 
+          IPython console - Graphics tab - Graphics backend: Inline). 
+        </li>
+        <li>
+          <em>The expression may involve variables</em> like <span class="math"><i>a</i>,
+          <i>b</i>, <i>x</i> or <i>y</i></span>. In your code, use the
+          doubled identifiers <span class="codeword">aa, bb, xx</span> and 
+          <span class="codeword">yy</span> for these variables. 
+        </li>
+        <li>
+          <em>All division is floating point.</em> In Python, the division
+          <span class="codeword">-3/2</span> has the
+          value <span class="math">-1.5</span>. It is helpful to replace all
+          numbers by floats in your expression.
+        </li>
+        <li>
+          <em>It is OK to simplify.</em> The correct expression printed
+          out by <span class="codeword">QuizMaster</span> when you make a
+          mistake is not simplified, but it is OK for you to enter a simplified
+          expression, like <span class="codeword">(8.5 + math.floor(bb)) * 4.0</span>.
+          Here <span class="codeword">(-3.)/2. + 10</span> has been replaced by
+          <span class="codeword">8.5</span>, and 
+          <span class="codeword">math.floor(4.)</span>
+          has been replaced by <span class="codeword">4.0</span>. The original
+          answer was marked wrong because integer division was assumed, and the
+          <span class="codeword">math.floor</span> operation on 
+          <span class="codeword">bb</span>
+          was omitted, not because simplification was done.
+        </li>
+        <li>
+          <em>Assume the math library is available.</em> Use functions
+          from this library, except when they are not needed (e.g., 
+          <span class="codeword">abs</span>
+          should <emph>not</emph> be written as <span class="codeword">math.abs</span>.
+          Absolute value is shown as <span class="math">|<i>b</i>|</span>, the
+          floor operation is shown as 
+          <span class="math">⌊<i>b</i>⌋</span> as above,
+          and the ceiling operation is shown as 
+          <span class="math">⌈<i>b</i>⌉</span>.
+        </li>
+        <li>
+          <em>The comparison is done on data values.</em> If you make a
+          mistake, <span class="codeword">QuizMaster</span> will show you the
+          data values used for variables, and the result you should get. Try it
+          yourself to check the results.
+        </li>
+      </ul>
+      <div class="output blue"> 
+<span style="color: black">EXAMPLES:</span>
+
+        <p class="graphic"> 
+          <img src="./Make-Up Lab 1_files/Makeup1Expr2.png" alt="expression">
+        </p>
+<span class="codeword"> Enter a Python expression to evaluate this math expression:
+
+2. <span class="blk">math.sin(-(math.cos(math.sin(math.sqrt(20.))) + aa - 4.0))</span>
+Correct!
+        <p class="graphic"> 
+          <img src="./Make-Up Lab 1_files/Makeup1Expr3.png" alt="expression">
+        </p>
+Enter a Python expression to evaluate this math expression:
+
+3. <span class="blk">math.cos(2.0) - math.sin(math.log10(math.cos(5.)) * 1000.)</span>
+Correct!
+      </span></div>
+      
+      
+      <h3>QUESTIONS ON BOOLEAN EXPRESSIONS</h3>
+      <div class="code blue"> 
+What is printed by
+
+
+print (1 == 1 and 2 or 3)   ? 
+
+<span style="color: black">2</span>
+Correct!
+      </div>
+      <p>
+        Python is unusual among computer languages in how it mixes 
+        <i>relational operators</i> (
+        <span class="codeword">&lt;, ≤, ==, !=, &gt; ≥</span>)
+        and <i>logical operators</i> (<span class="codeword">and</span> and 
+        <span class="codeword">or</span>). But once again there are a few rules.
+      </p>
+      <ol>
+        <li>
+          <em>Evaluate all the mathematical expressions first, as described
+          above.</em> The expression 
+          <span class="codeword">5 + 3 == 2 * 4 &gt; 3</span> is evaluated like 
+          <span class="codeword">(5 + 3) == (2 * 4) &gt; 3</span>.
+        </li>
+        <li>
+          <em>Evaluate all comparisons left to right, and combine them with
+          <span class="codeword builtin">and</span>.</em> So
+          the expression above becomes <span class="codeword">8 == 8 &gt; 3</span>,
+          which is evaluated as <span class="codeword">(8 == 8) 
+          <span class="codeword builtin">and</span> (8 &gt; 3)</span>. 
+          Since both comparisons yield <span class="codeword truefalse">True</span>,
+          the result is <span class="codeword truefalse">True</span>. Few other 
+          languages evaluate a sequence of comparisons this way. 
+          Note that if the expression were 
+          <span class="codeword">5 + 3 &lt; 2 * 4 &gt; 3</span> instead, it would
+          simplify to <span class="codeword">8 &lt; 8 &gt; 3</span> and then to
+          <span class="codeword">(8 &lt; 8) 
+          <span class="codeword builtin">and</span> (8 &gt; 3)</span>. 
+          In this case, the leftmost comparison <span class="codeword">8 &lt; 8</span> 
+          is <span class="codeword truefalse">False</span>,
+          and we know right away it would make the chain of comparisons 
+          <span class="codeword truefalse">False</span>, and so Python 
+          would not actually evaluate <span class="codeword">8 &gt; 3</span> 
+          as its value is irrelevant. Sometimes not evaluating code in an
+          expression has side-effects (e.g., a function does not get called to
+          print out a value). That is why it is important to know that
+          evaluation is left to right.
+        </li>
+        <li>
+          <em>Next evaluate <span class="codeword builtin">and</span>s left to right.</em>
+          <div class="aside"> 
+            You probably know the rule for evaluating 
+            <span class="codeword">xx  <span class="builtin">and</span> yy</span> 
+            when <span class="codeword">xx</span> and <span class="codeword">yy</span> 
+            are both <span class="codeword builtin">bool</span>: 
+            the result is <span class="codeword truefalse">True</span> if and only 
+            if both <span class="codeword">xx</span> and <span class="codeword">yy</span> 
+            are <span class="codeword truefalse">True</span>. But what is the value
+            of <span class="codeword">(5 <span class="builtin">and</span> 3)</span>? 
+            Python has a more general definition of 
+            <span class="codeword builtin">and</span> than most languages. First, the
+            result of 
+            <span class="codeword">xx <span class="builtin">and</span> yy</span> 
+            is going to be one of the values <span class="codeword">xx</span>
+            and <span class="codeword">yy</span>. 
+            If they are both <span class="codeword builtin">bool</span>, the result 
+            will be <span class="codeword truefalse">True</span> or it will be 
+            <span class="codeword truefalse">False</span>. If we evaluate 
+            <span class="codeword">(5 <span class="builtin">and</span> 3)</span>, 
+            the result will be either <span class="codeword">5</span> or it will be 
+            <span class="codeword">3</span>. But which one? Python first evaluates the 
+            <span class="codeword builtin">bool</span> value of the left side of the
+            <span class="codeword builtin">and</span>; that is,
+            <span class="codeword">bool(xx)</span>. (The 
+            <span class="codeword builtin">bool</span> value of a non-zero number or a
+            non-empty list or string is <span class="codeword truefalse">True</span>.
+            The <span class="codeword builtin">bool</span> value of zero or of an empty
+            list or string is <span class="codeword truefalse">False</span>.) 
+            If that value is <span class="codeword truefalse">False</span>,
+            we know right away that <span class="codeword">
+            <span class="builtin">bool</span>(xx <span class="builtin">and</span> yy)</span> 
+            will be <span class="codeword truefalse">False</span>, so 
+            <span class="codeword builtin">and</span>
+            returns the value <span class="codeword">xx</span> (it could be 
+            <span class="codeword truefalse">False</span> or 
+            <span class="codeword">0</span>
+            or an empty list, <span class="codeword">[]</span>, or an empty
+            string <span class="codeword">""</span>, etc.). But if 
+            <span class="codeword"><span class="builtin">bool</span>(xx)</span> is 
+            <span class="codeword truefalse">True</span>, we don't know the result, as it
+            depends on <span class="codeword">yy</span>. So then 
+            <span class="codeword builtin">and</span> returns the value of 
+            <span class="codeword">yy</span>.
+            As a function, <span class="codeword builtin">and</span>
+            would work like this :<br>
+            <div class="code"> 
+<span class="definition">def</span> <span style="color: blue;">andFunction</span>(xx,yy):
+  result = xx 
+  <span style="color: green;">if </span> <span style="color: violet;">bool</span>(result):
+    result = yy
+  <span style="color: green;">return</span> result 
+          </div>
+          </div>
+        </li>
+        <li>
+          <em>Finally, evaluate <span class="codeword" style="color:green;">or</span>s
+          left to right.</em> Like <span class="codeword">
+          <span style="color:green;">and</span>, xx 
+          <span style="color:green;">or</span> yy</span> returns either 
+          <span class="codeword">xx</span> or it returns <span class="codeword">yy</span>.
+          Can you figure out why the following 
+          <span class="codeword" style="color:green;">or</span>
+          function works? Once again remember that 
+          <span class="codeword" style="color:green;">or</span>
+          will evaluate <span class="codeword">yy</span>, the argument on the
+          right, only if it has to.
+          <div class="code"> 
+<span class="definition">def</span> <span style="color: blue;">orFunction</span>(xx,yy):
+  result = xx
+  <span style="color: green;">if not </span> <span style="color: violet;">bool</span>(result):
+    result = yy
+  <span style="color: green;">return</span> result
+          </div>
+        </li>
+      </ol>
+      <p>
+        Putting all these rules together, why does the <span class="codeword">QuizMaster</span>
+        expression at the beginning of this section work? The expression is 
+        <span class="codeword">1 == 1 <span style="color:green;">and</span> 2 
+        <span style="color:green;">or</span> 3</span>. There are no mathematical
+        subexpressions, so we proceed to comparisons. 
+        <span class="codeword">1 == 1</span> is 
+        <span class="codeword truefalse">True</span>,
+        so it becomes <span class="codeword"><span class="codeword truefalse">True</span>
+          <span style="color:green;">and</span> 2 <span style="color:green;">or</span>
+          3</span>. The left side of the <span class="codeword" style="color:green;">and</span>
+        is <span class="codeword truefalse">True</span>, so 
+        <span class="codeword" style="color:green;">and</span> returns the right side, 
+        which is <span class="codeword">2</span>. We then have <span class="codeword">2 
+        <span style="color:green;">or</span> 3</span>. The left side of 
+        <span class="codeword" style="color:green;">or</span> has a boolean value of 
+        <span class="codeword truefalse">True</span>, so 
+        <span class="codeword" style="color:green;">or</span>
+        returns the left side: <span class="codeword">2</span>. The answer that
+        is printed is <span class="codeword">2</span>.
+      </p>
+      <div class="output" style="color: blue;"> 
+<span style="color: black">EXAMPLES:</span>
+
+<span class="codeword">What is printed by
+<span class="codeword">print (3**2 &gt;= 1 or 2) ? <span style="color: black">True</span> <span class="comment"># Hint: True or 2 returns left side</span>
+Correct!</span>
+
+What is printed by
+<span class="codeword">print (2 // 3 and 1 - 3) ? <span style="color: black">0</span> <span class="comment"># Hint: (2 // 3) and (1 - 3) returns left side</span>
+Correct!</span>
+
+What is printed by
+<span class="codeword">print (2 &lt; 3 != 2 &gt; 3) ? <span style="color: black">False</span> <span class="comment"># Hint: (2 &lt; 3) and (3 != 2) and (2 &gt; 3)</span>
+Correct!</span>
+
+What is printed by<br>
+<span class="codeword">print (2 / 4 &gt;= 2 or 0) ? <span style="color: black">0</span> <span class="comment"># Hint: (0 &gt;= 2) or 0 returns right side</span>
+Correct!</span></span>
+      </div>
+      
+      <h3>QUESTIONS ON RANGE EXPRESSIONS</h3>
+      <div class="code" style="color: blue"> 
+What is printed by 
+print range(5,3,-1) ? <span style="color: black">[5,4]</span>
+Correct!
+      </div>
+      <p>
+        The <span class="codeword">range</span> function returns a 
+        <span class="codeword">list</span>
+        of equally-spaced integer values. There are three variants, depending on
+        whether you use 1, 2 or 3 integer arguments in your call. If there are
+        no possible values, range will return an empty <span class="codeword">list</span>,
+        represented by <span class="codeword">[]</span>.
+        </p>
+      <ol>
+        <li>
+          <em>3-argument variant: </em><span class="codeword">range(start, stop, step)</span>. 
+          The parameter <span class="codeword">start</span>
+          provides the first value that will appear in the <span class="codeword">list</span>,
+          if any. Subsequent values will be 
+          <span class="codeword">start + step, start + 2*step, start + 3*step,</span> etc. 
+          If <span class="codeword">step &gt; 0</span>, the sequence will be increasing; 
+          if <span class="codeword">step &lt; 0</span>, the sequence will be decreasing. 
+          If <span class="codeword">step</span>
+          is <span class="codeword">0</span>, <span class="codeword">range</span>
+          will generate a <span class="codeword">ValueError</span> exception.
+          The sequence always stops before reaching <span class="codeword">stop;</span>
+          the <span class="codeword">stop</span> value will never appear in the
+          <span class="codeword">list</span>. The <span class="codeword">list</span>
+          will be empty in two cases: (a) <span class="codeword">start == stop,</span>
+          and (b) <span class="codeword">stop - start</span> has the opposite
+          sign from <span class="codeword">step.</span>
+        </li>
+        <li>
+          <em>2-argument variant:</em> <span class="codeword">range(start, stop)</span>. 
+          This is the same as the 3-argument variant, with an
+          assumed <span class="codeword">step</span> of <span class="codeword">1.</span>
+          The <span class="codeword">list</span> returned will be empty unless
+          <span class="codeword">start &lt; stop.</span>
+        </li>
+        <li>
+          <em>1-argument variant:</em> <span class="codeword">range(stop)</span>.
+          This is the same as the 3-argument variant, with an assumed 
+          <span class="codeword">start</span>
+          of <span class="codeword">0</span> and <span class="codeword">step</span>
+          of <span class="codeword">1.</span> The number of entries in the
+          returned <span class="codeword">list</span> is the same as 
+          <span class="codeword">stop.</span>
+          For example, <span class="codeword">range(5)</span> gives 
+          <span class="codeword">[0, 1, 2, 3, 4],</span> which has 5 entries.
+        </li>
+      </ol>
+      <div class="output" style="color: blue;"> 
+<span style="color: black">EXAMPLES:</span>
+<span class="codeword">What is printed by
+print range(-1) ? <span style="color: black">[ ]</span> <span class="comment"># Hint: empty list unless the argument is positive</span>
+Correct!
+
+What is printed by
+print (range(3,8))   ? <span style="color: black">[3, 4, 5, 6, 7]</span> <span class="comment"># Hint: step is 1; list does NOT include 8</span>
+Correct!
+
+What is printed by
+print (range(-2,-1))   ? <span style="color: black">[-2]</span> <span class="comment"># Hint: the step is 1; cannot include -1</span>
+Correct!
+
+What is printed by
+print (range(3,-4,-2))   ? <span style="color: black">[3, 1, -1, -3]</span> <span class="comment"># Hint: cannot pass the stop value</span>
+Correct!</span>
+      </div>
+      
+      
+      <h3>QUESTIONS ON SLICE EXPRESSIONS</h3>
+      <div class="code" style="color: blue"> 
+What is printed by
+print ('alphabet'[1:3])   ? <span style="color: black">"lp"</span>
+Correct!
+      </div>
+      <p>
+        The slice operator (here <span class="codeword">[1:3]</span>) can be
+        used to extract part of any sequence in Python, whether it is a 
+        <span class="codeword">string</span>,
+        a <span class="codeword">list</span>, a <span class="codeword">tuple</span>,
+        and later a <span class="codeword">numpy array</span>�in fact, anything
+        that can be subscripted. Here are the rules:
+      </p>
+      <ol>
+        <li>
+          <em>The type doesn't change.</em> The result of the slice will
+          be of the same type as the sequence you are slicing: a 
+          <span class="codeword">list</span>
+          yields a <span class="codeword">list</span> result, a 
+          <span class="codeword">string</span>
+          yields a <span class="codeword">string</span> result, and a 
+          <span class="codeword">tuple</span>
+          yields a <span class="codeword">tuple</span> result.
+        </li>
+        <li>
+          <em>The numbers in the slice brackets define a range of
+          subscripts.</em> For example, if you take a slice 
+          <span class="codeword">"martians"[3:6]</span>,
+          you will get characters in positions defined by 
+          <span class="codeword">range(3,6)</span>,
+          namely positions <span class="codeword">[3, 4, 5]</span>, yielding 
+          <span class="codeword">"tia"</span>. It is possible to add another part to
+          the slice to provide a step, like <span class="codeword">"martians"[3:0:-1]</span>
+          which gives <span class="codeword">"tra"</span>. 
+        </li>
+        <li>
+          <em>Negative numbers have the sequence length added to them.</em>
+          Negative entries in the slice (except in the last step part) are first
+          converted by adding the length of the sequence before a range is
+          generated. So <span class="codeword">"martians"[3:-1:-1]</span> is
+          interpreted as <span class="codeword">"martians"[3:7:-1]</span> which
+          is <span class="codeword">""</span>, and 
+          <span class="codeword">"martians"[-5:-2]</span>
+          is the same as <span class="codeword">"martians"[3:6]</span> which is
+          <span class="codeword">"tia".</span>
+        </li>
+      </ol>
+      <div class="output" style="color: blue;"> 
+<span style="color: black">EXAMPLES:</span>
+
+<span class="codeword"> What is printed by
+print ('alphabet'[-8:0])   ? <span style="color: black">""</span> <span class="comment"># Hint: -8 is converted to 0 first</span>
+Correct!
+          
+What is printed by
+print (('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat')[-5:1])   ? <span style="color: black">( )</span>  <span class="comment"># Hint: subscripts in range(2,1); the result must be a tuple</span>
+Correct!
+
+What is printed by
+print (('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat')[-5:3])   ? <span style="color: black">('Tue',)</span> <span class="comment"># Hint: extra comma needed for tuple of length 1</span>
+Correct!
+
+What is printed by
+print ([0, 1, 2, 3][0:-2])   ? <span style="color: black">[0,1]</span> <span class="comment"># Hint: subscripts from range(0,2)</span>
+Correct!</span>
+      </div>
+      <hr> </div>
+  
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

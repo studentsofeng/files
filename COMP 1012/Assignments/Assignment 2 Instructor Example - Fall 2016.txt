@@ -1,0 +1,119 @@
+''' COMP 1012  SECTION A01/A02
+    INSTRUCTOR Domaratzki, Boyer
+    ASSIGNMENT: A2 Q1
+    AUTHOR    The Instructors
+    VERSION   2016-Sep-22
+ 
+    PURPOSE: to calculate attributes of a normal distribution
+'''
+import math
+import time
+
+# constants
+MU_UNI = "\N{GREEK SMALL LETTER MU}"       # Unicode for μ
+SIGMA_UNI="\N{GREEK SMALL LETTER SIGMA}"   # Unicode for σ
+MU = 900             # mean of plate thickness [mm]
+SIGMA = 1            # standard deviation of plate thickness [mm]
+RANGE = 10           # range of values to test
+START = MU-RANGE     # least thickness to evaluate [mm]
+STOP =  MU+RANGE     # highest thickness to evaluate [mm]
+TOL = 1.e-20         # Tolerance for term magnitude
+BIG_INT = 10**50     # Big factor for high precision integer calculations
+
+print("DISTRIBUTION OF A PLATE WIDTH: %s = %g mm, %s = %g mm" % 
+     (MU_UNI, MU, SIGMA_UNI, SIGMA))
+
+# Table 1: using math function to evaluate erf
+print ("\nUsing functions from the math library ...")
+print (" x         f(x)           F(x)")
+xx = START          # possible plate width [mm]
+while xx <= STOP :
+    zz = (xx - MU) / SIGMA / math.sqrt(2.)  #term for erf and pdf
+    # probability density [1/mm]
+    pdf = math.exp(-zz**2) / SIGMA / math.sqrt(2. * math.pi)  #
+    # cumulative probability [-]
+    cdf = 0.5 * (1. + math.erf(zz))  #
+    print ("%g   %12.4e   %12.4e" % (xx, pdf, cdf))
+    xx = xx + 1
+
+# Table 2: using floating-point series to approximate erf
+print ("\nUsing a series to evaluate erf(z) ...")
+print (" x         F(x)      Number of terms")
+xx = START
+while xx <= STOP :
+    zz = (xx - MU) / SIGMA / math.sqrt(2.)
+    zsq = zz * zz     # term for z squared
+    erfSum = 0.       # sum of series for erf
+    count = 0         # number of terms summed so far
+    product = zz      # product of factors that accumulate
+    term = zz         # current term value
+    while abs(term) >= TOL :  # while terms are large enough to matter
+        erfSum += term
+        count += 1
+        product = -product * zsq / count
+        term = product / (2. * count + 1.)
+
+    # We have the sum of the series; now calculate erf at zz and the cdf
+    erfVal = erfSum * 2. / math.sqrt(math.pi)  # calculated erf
+    cdf = 0.5 * (1. + erfVal)                  # calculated cdf
+    print ("%g   %12.4e   %8d" % (xx, cdf, count))
+    xx = xx + 1
+    
+# Table 3: using high-precision integer series to approximate erf
+print ("\nUsing an accurate integer series to evaluate erf(z) ...")
+print (" x         F(x)      Number of terms")
+xx = int(START)
+# loop over possible plate widths from START to STOP
+while xx <= STOP :
+    yy = (xx - int(MU)) // int(SIGMA)   # y is an integer version of z
+    ysq = yy * yy                       # term for y squared
+    erfSum = 0
+    count = 0
+    product = BIG_INT * yy
+    term = product
+    while abs(term) > 0:
+        erfSum += term
+        count += 1
+        product = -product * ysq // 2 // count
+        term = product // (2 * count + 1)
+
+    # The sum is an integer, too high by the factor BIG_INT
+    erfVal = erfSum * 2. / math.sqrt(2. * math.pi) / BIG_INT
+    cdf = 0.5 * (1. + erfVal)
+    print ("%g   %12.4e   %8d" % (xx, cdf, count))
+    xx = xx + 1
+    
+
+"""    
+import matplotlib.pylab as plt
+# plots
+title = "Distribution of plate widths %s %s=%d, %s=%d"
+xs = [MU - 4. * SIGMA + 0.01 * SIGMA * jj for jj in range(801)]
+pdf = [math.exp(-(xx - MU)**2 /2. / SIGMA**2)/ SIGMA / math.sqrt(2. * math.pi)
+       for xx in xs]
+cdf = [0.5 * (1. + math.erf((xx - MU) / SIGMA / math.sqrt(2.)))
+       for xx in xs]
+# pdf
+plt.figure(1)
+plt.plot(xs, pdf)
+plt.title(title % ("PDF", MU_UNI, MU, SIGMA_UNI, SIGMA))
+plt.xlabel("Width of plate [mm]")
+plt.ylabel("Probability density [mm$^{-1}$]")
+#plt.savefig("PlatePdf.png")
+plt.show()
+
+# cdf
+plt.figure(2)
+plt.plot(xs, cdf)
+plt.title(title % ("CDF", MU_UNI, MU, SIGMA_UNI, SIGMA))
+plt.xlabel("Width of plate [mm]")
+plt.ylabel("Probability plate width is less")
+#plt.savefig("PlateCdf.png")
+plt.show()
+#"""
+
+print ("\nProgrammed by The Instructors")
+print ("Date: " + time.ctime())
+print ("End of processing")
+
+

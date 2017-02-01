@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+''' COMP 1012  SECTION A01/A02
+    INSTRUCTOR Domaratzki, Boyer
+    ASSIGNMENT: A4 Q2
+    AUTHOR    The Instructors
+    VERSION   2016-Dec-20
+ 
+    PURPOSE: estimate curve lengths as a sum of straight line segments
+'''
+
+import time
+import numpy as np
+
+#..........................................................................main
+def main():
+    '''the main function'''
+    
+    MIN =    3     # minimum number of points for estimation
+    MAX = 5000     # maximum number of points for estimation
+    print("CURVE LENGTHS")
+    showLength(halfCircle, MIN, MAX)
+    showLength(fractionalPowers, MIN, MAX)
+    showLength(xSinx, MIN, MAX)
+    
+    showTermination()
+    return
+
+
+#....................................................................findLength
+def findLength(xs, ys):
+    '''estimate curve length described by xs and ys using line segments'''
+    
+    deltaX = xs[1::] - xs[:-1:]   # x[i] - x[i-1]
+    deltaY = ys[1::] - ys[:-1:]   # y[i] - y[i-1]
+    return np.sum(np.sqrt(deltaX**2 + deltaY**2))
+
+#..............................................................fractionalPowers
+def fractionalPowers(numPoints):
+    '''calculate points as the sum of fractional powers 
+    of x going from 0 to 100'''
+    
+    MIN =   0   # minimum range of x-values
+    MAX = 100   # maximum range of x-values
+    xValues = np.linspace(MIN, MAX, numPoints)  # the x-values
+    yValues = (np.power(xValues, 0.5) + np.power(xValues, 1/3) + 
+               np.power(xValues, 0.25))   # the y-values
+    return xValues, yValues
+
+#....................................................................halfCircle
+def halfCircle(numPoints):
+    '''calculate points on a half circle going from -5 to 5'''
+    
+    MIN = -5   # minimum range of x-values
+    MAX =  5   # maximum range of x-values
+    xValues = np.linspace(MIN, MAX, numPoints)  # the x-values
+    yValues = np.sqrt(MIN**2 - xValues**2)      # the y-values
+    return xValues, yValues
+
+#....................................................................showLength
+def showLength(targetFunc, minPoints, maxPoints):
+    '''print properties of targetFunc'''
+    
+    print("\nLength of the curve of the function %s" % targetFunc.__name__)
+    print("#POINTS  LENGTH")
+    numPoints = minPoints     # number of points for approximation
+    while numPoints <= maxPoints:
+        xValues, yValues = targetFunc(numPoints)
+        print("%6d   %8.4f" % (numPoints, findLength(xValues, yValues)))
+        numPoints *= 2
+    return
+
+#...............................................................showTermination
+def showTermination():
+    '''Display the termination message'''
+    print ("\nProgrammed by The Instructors")
+    print ("Date: " + time.ctime())
+    print ("End of processing")
+    return
+
+#.........................................................................xSinx
+def xSinx(numPoints):
+    '''calculate x sin(x) for values of x from -20 to 20'''
+    
+    MIN = -20   # minimum range of x-values
+    MAX =  20   # maximum range of x-values
+    xValues = np.linspace(MIN, MAX, numPoints)  # the x-values
+    yValues = xValues * np.sin(xValues)         # the y-values
+    return xValues, yValues
+
+
+main()

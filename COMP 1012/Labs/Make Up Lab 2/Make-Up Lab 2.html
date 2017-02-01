@@ -1,0 +1,143 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/LabM2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Make-Up Lab 2</title>
+    <link rel="stylesheet" type="text/css" href="./Make-Up Lab 2_files/COMP1012Lab.css">
+  </head>
+  <body>
+    <div class="default">
+
+    
+      <h1 style="font-size:20pt">COMP 1012 Make-up Lab 2</h1>
+      <p><strong>Nov 7 to 10,&nbsp;2016</strong></p>
+      <div class="aside" style="font-size:12pt">
+        You can make up for a lab you have missed or will miss. Even if you
+        are not planning on missing any labs.
+      </div>
+      
+      <h2>Material covered:</h2>
+      <ul>
+        <li>
+          Exam Prep 
+        </li>
+      </ul>
+      
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+
+      <h2>Exercise 1: Writing code by hand.</h2>
+      <p>
+        One of the challenges of writing a test in COMP 1012 is writing code 
+        by hand.  In this question, you should write a programming question 
+        by hand, then enter the code into spyder and try to see how you can 
+        improve it. 
+      </p>
+    
+<p>
+Look at the <a href="http://cs.umanitoba.ca/~comp1012/Finals/final_1012_2013A_v4.pdf">Winter 2013 final exam</a>, Question B.3 (Page 5 of 13). 
+<b>You should use math.cos</b> in your solution (unlike what the question
+asks).
+</p>
+
+<p>
+Write the solution for the pendulum function on paper. Once you have completed
+it, type it in exactly as you have it into spyder to verify your solution. 
+</p>
+
+<p>
+To test your answer, call the pendulum method with g = 9.8, initial angle
+math.pi/6 and radius 0.3 m. You should get values of approximately
+1.1 s and 0.89 m/s.
+</p>
+
+<h2>Exercise 2: Finding Errors </h2>
+
+<p> 
+When reviewing your written code, it is helpful to be able to detect
+small errors that can cause problems with your code. In this part of the lab,
+you will look at a written solution and identify problems with the code.
+For more detail on this question, consult the <a href="http://cs.umanitoba.ca/~comp1012/Finals/final_1012_2013C_v1_WA.pdf">Fall 2013 Exam</a> (Part D).
+
+</p>
+
+<div class="code">
+def showWord(word, guessed)
+  """Create a string showing the word double-spaced,
+  with unguessed letters represented by underscores"""
+  display = ''
+  for letter in guessed:
+    if letter in guessed:
+       display += letter + ' '
+    else :
+       display = "_ " 
+  return letter
+
+word = input("Enter a word: ")
+letters, guessed = word, '', 3
+while len(letters)&gt;0:
+  guessed = guessed + letters[0]
+  letters = letters.replace(letters[0] : '')
+  print(showWord(word, guessed))
+  
+</div>
+
+<p>This question was part of an assignment during that term, so
+it's ok if you don't understand it quickly. It formed part of a guessing game
+like hangman:
+</p><ul>
+<li>The function <span class="codeword">showWord</span> takes as parameters the target word ("BANANAS") 
+and a list of guessed letters, and shows guessed letters in the word, 
+but shows unguessed letters as an underscore</li>
+<li>The functions works by looping through all letters in the word and building
+a word <span class="codeword">display</span> that has letters and underscores in it.</li>
+<li>Each letter is separated from each other letter by a space in <span class="codeword">showWord</span>.</li>
+<li>The main code (lines 9-14) prompts the user for a word. Initially
+it sets the letters in the word to all of the string word, and the guessed
+letters to no letters.</li> 
+<li>You can read about the replace method <a href="https://docs.python.org/3/library/stdtypes.html">here</a> (look for str.replace)</li>
+</ul>
+<p></p>
+
+<p>So on input BANANAS, the output should be
+</p><div class="code">
+B _ _ _ _ _ _
+B A _ A _ A _  
+B A N A N A _  
+B A N A N A S  
+</div>
+<p></p>
+
+<p>Now that you understand the code, there are six errors in the code. List
+them all and show how to fix them. Once you have found them all (or cannot find any more) enter your solution into spyder and try to run your code
+as corrected.</p>
+<p></p> 
+
+<h2>Exercise 3: Coding Bat  </h2>
+
+<p> 
+Try <a href="http://codingbat.com/prob/p184853">this exercise</a> at
+codingbat.com. Break the larger problem into smaller tasks that you can
+solve with one construct like an if statement or loop.  Then build your 
+larger solution.
+</p>
+
+
+</div></body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

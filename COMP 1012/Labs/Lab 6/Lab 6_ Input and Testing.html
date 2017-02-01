@@ -1,0 +1,267 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab06.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Lab 6: Input and Testing</title>
+    <link rel="stylesheet" type="text/css" href="./Lab 6_ Input and Testing_files/COMP1012Lab.css">
+  </head>
+  <body>
+    <div class="default">
+
+      <h1 style="font-size:20pt">COMP 1012 Lab 6</h1>
+      <p><strong>Oct 31 to Nov 4, 2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>User input.</li>
+        <li class="codeword">if ... elif ... else.</li>
+        <li class="codeword">assert.</li>
+        <li class="codeword">try ... except (optional)</li>
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+      
+
+      <h2>Exercise 1: Read in an int, a float, and a tuple</h2>
+      <p class="todo">
+        Using three different <span class="codeword">input</span> commands and
+        suitable prompt messages, read in a person's age, their height in
+        metres, and their name. Then print out a message with the age, the
+        height in centimetres, and the first name.
+      </p> 
+      <p>
+        Here is a sample interaction. Notice how important it is to use a good
+        prompt message so that the user will know what to enter.
+      </p>
+      <div class="output blue"> 
+Enter your age in years: <span class="blk">20</span>
+Enter your height in metres: <span class="blk">1.49</span>
+Enter your name ('last name', 'first name'): <span class="blk">'Preston', 'Tamara'</span>
+
+Hello, Tamara; you are 20 years old and 149 cm tall 
+      </div>
+      <p> 
+        In each input you will read in a character string (that's all that 
+        <span class="codeword">input</span> provides). You will need to convert
+        it to the appropriate value. For example, this is how you could code the
+        age input: 
+      </p>
+      <div class="code">
+userInput = <span class="builtin">input</span>(<span class="string">"Enter your age in years: "</span>)
+age = <span class="builtin">int</span>(userInput.strip())
+      </div>
+      <p>
+        The function <span class="codeword">int</span> converts a string to an
+        integer if it is possible. If not, it produces an exception. 
+        (Will <span class="codeword">int</span> work on 
+        <span class="codeword">"6.2"</span>?)
+        The <em>method</em> <span class="codeword">strip</span> (a method
+        is a function that appears after a dot after an identifier) removes
+        extra blanks, tabs and newlines from the front and back of the string.
+        It is not always needed, but it is a good practice to use it.
+      </p>
+      <p>
+        Entering the height in metres requires a <span class="codeword">float</span>
+        conversion. Entering a name as shown requires an evaluation of the input
+        as an expression using the function <span class="codeword">eval</span>,
+        as in:
+      </p>
+      <div class="code"> 
+nameTuple = <span class="builtin">eval</span>(<span class="string">"'Preston', 'Tamara'"</span>)
+      </div>
+      <p>
+        In some contexts, using eval can be quite risky, as discussed at 
+        <a href="http://lybniz2.sourceforge.net/safeeval.html">
+        lybniz2.sourceforge.net/safeeval.html</a>. An attacker can execute
+        code that could damage your computer. But it can be made safer by using
+        two optional arguments that limit what libraries and functions the code
+        to be evaluated can use. The empty curly brackets shown below specify
+        that no libraries nor function can be called in the evaluation.
+      </p>
+      <div class="code"> 
+nameTuple = <span class="builtin">eval</span>(<span class="string">"'Preston', 'Tamara'"</span>, {}, {})
+      </div>
+      <p>
+        If you are careful to limit the scope of the 
+        <span class="codeword builtin">eval</span> statement in this way, you can
+        use it to interpret user input that could be executed as an expression. But
+        a clever hacker could still cause damage to your computer using more
+        sophisticated approaches, as discussed at 
+        <a href="http://nedbatchelder.com/blog/201206/eval_really_is_dangerous.html">
+        http://nedbatchelder.com/blog/201206/eval_really_is_dangerous.html</a>.
+      </p>
+      <p>
+        How would you make the following input work without using 
+        <span class="codeword builtin">eval</span>?
+      </p>
+      <div class="output blue"> 
+Enter your age in years: <span class="blk">20</span>
+Enter your height in metres: <span class="blk">1.49 </span>
+Enter your name (example: John Doe): <span class="blk">Tamara Preston</span>
+
+Hello, Tamara; you are 20 years old and 149 cm tall 
+      </div>
+      <p>
+        Hint: type <span class="codeword">help(str.split)</span> in the Console.
+      </p>
+      
+      
+      <h2>
+        Exercise 2: Avoiding invalid inputs: the <span class="codeword">assert</span>
+        statement
+      </h2>
+      <p>
+        If you prompt for an age as in Exercise 1, and the user gives you an
+        invalid response like 
+        <span class="codeword quote">"None of your business!"</span>, the 
+        <span class="codeword">int</span>
+        conversion will fail and the code will stop. Having the code fail right
+        away on bad inputs is called <em>fail fast</em>, and it is a simple
+        way of letting the user know that this input is unacceptable (though the
+        result is not very elegant.)
+      </p>
+      <div class="aside"> 
+        Type <span class="codeword">import this</span> in the Console
+        to see the <span style="font-style: italic;">Zen of Python</span>. 
+        Remember these lines: <br>
+        <br>
+        <span class="codeword">Errors should never pass silently. <br>
+          Unless explicitly silenced. </span>
+      </div>
+      <p>
+        What happens if the user enters a ridiculous result for age, like 
+        <span class="codeword">-23</span> or <span class="codeword">7654321</span>
+        (their student number)? Since these are valid integers, the code does
+        not fail, and so it can continue to try to work with invalid data,
+        perhaps failing eventually in a distant part of the code. <em>Input
+        checking</em> is the process of finding invalid inputs of this type,
+        and preventing the code from continuing. It can be a long and
+        painstaking process to do a complete check, especially if the user's
+        entries are not mistakes, but malicious attacks. Vulnerabilities in
+        commercial code you read about are often failures of input checking that
+        have been found and exploited by hackers.
+      </p>
+      <p>
+        The simplest way of preventing invalid inputs from entering your code
+        is with an <span class="codeword">assert</span> statement. An 
+        <span class="codeword">assert</span>
+        statement contains a <span class="codeword">bool</span>ean expression,
+        and it causes an exception if the <span class="codeword">bool</span>ean
+        expression evaluates to <span class="codeword">False</span>. It is a
+        way of implementing fail fast on value errors. Here's an example of an
+        assertion being used to check on age. The string after the comma can be
+        used to describe the problem.
+      </p>
+      <div class="code"> 
+userInput = <span class="builtin">input</span>(<span class="string">"Enter your age in years: "</span>)
+age = <span class="builtin">int</span>(userInput.strip())
+<span class="keyword">assert</span> <span class="literal">0</span> &lt;= age &lt; <span class="literal">130</span> <span class="comment"># short form, or add an error message, as follows </span>
+<span class="keyword">assert</span> <span class="literal">0</span> &lt;= age &lt; <span class="literal">130</span>, <span class="string">"Age %d is out of range 0 to 130"</span> % age 
+      </div>
+      <p class="blue">
+        Add <span class="codeword">assert</span> statements
+        to the code you developed in Exercise 1 using 
+        <span class="builtin codeword"> eval</span> to ensure that age lies
+        between 0 and 130 (what is the world record for age?), height lies
+        beween 0.3 and 3.0, and that the name is of type <span class="codeword">tuple</span>
+        (that is, <span class="codeword">type(name) == tuple</span>). Check its
+        length to be more than 1, and that the <span class="codeword">type</span>
+        of the first two entries is each <span class="codeword">str</span>. Try
+        some test cases to make sure your assertions work. 
+        <span class="blk">Note: no <span class="codeword">if</span> statements are 
+        required; if an assertion fails, the code crashes.</span>
+      </p>
+      
+      
+      <h2>Exercise 3: Looping for valid inputs</h2>
+      <p>
+        A more user-friendly way of dealing with invalid inputs is to do the
+        following steps: 
+      </p>
+      <ul>
+        <li>detect the invalid input;</li>
+        <li>let the user know what he did wrong and how to correct it;</li>
+        <li>give the user another chance.</li>
+      </ul>
+      <p>
+        <span class="blue">Rewrite the code from Exercise 3 to help the
+          user enter a valid age. If his entry is invalid, give him a warning
+          message and ask him again. The warning message should include the
+          incorrect entry for feedback to the user. Keep repeating the process
+          until his entry is acceptable.</span> Try to code the process
+        yourself. It is surprisingly tricky.
+      </p>
+      <p>
+        If you have troubles, consider the following example, where the object
+        is to enter a string of at least 5 characters that begins with a letter.
+        When more tests are needed, add in more independent tests, or use
+        mutually exclusive tests using an 
+        <span class="codeword">if ... elif ... elif ... else ...</span> clause.
+      </p>
+      <div class="code"> 
+PROMPT = <span class="string">"Enter at least 5 characters, starting with a letter"</span>
+warning = <span class="string">"\n"</span>
+<span class="keyword">while</span> <span class="builtin">len</span>(warning) &gt; <span class="literal">0</span> : <span class="comment"># or just 'while warning :'</span>
+  <span class="comment"># warning describes what was wrong last time </span>
+  userText = <span class="builtin">input</span>(warning + PROMPT)
+  warning = <span class="string">""</span>
+  <span class="keyword">if</span> <span class="builtin">len</span>(userText) &lt; <span class="literal">5</span> :
+    warning += (<span class="string">"'"</span> + userText + <span class="string">"' has &lt; 5 characters\n"</span>)
+  <span class="keyword">if not</span> (<span class="string">'a'</span> &lt;= userText.<span class="builtin">lower</span>() &lt;= <span class="string">'z'</span>) :
+    warning += (<span class="string">"'"</span> + userText + <span class="string">"' does not start with a letter\n"</span>)
+      </div>
+      <p>
+        How could you modify your code so it prompts the user a maximum of
+        three times, and then quits if he still doesn't get it right?
+      </p>
+      
+      
+      <h2>Exercise 4: The try ... except ... approach</h2>
+      <p>
+        This option is not required for the course, but it is handy to know. If
+        you try any tricky code that might fail with an exception, you can catch
+        the exception and deal with it. This approach is called <em>exception
+        handling</em>, and it is expected with commercial code. In the
+        following case, the <span class="codeword">try</span> part is executed.
+        If it encounters an exception, instead of failing right away, it
+        executes the <span class="codeword">except</span> part. This code can
+        fail gracefully, or fix up the problem. By using this approach, the
+        programmer can avoid testing for a number of conditions that will all
+        cause the code to fail. It is then much easier to read the intent of the
+        code by reading the <span class="codeword">try</span> part.
+      </p>
+      <div class="code"> 
+<span class="codeword">try</span> :
+  userInput = <span class="builtin">input</span>(<span class="string">"Enter your age in years: "</span>)
+  age = <span class="builtin">int</span>(userInput.<span class="builtin">strip</span>())
+<span class="codeword">except</span> :
+  print <span class="string">"Invalid age '%s' entered"</span> % userInput
+  age = <span class="literal">130</span>
+      </div>
+      <p class="todo">
+        Try putting a <span class="codeword">try</span>
+        clause around the solution to Exercise 1, and printing a suitable error
+        message in the <span class="codeword">except</span> part.
+      </p>
+    </div>
+  
+
+
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

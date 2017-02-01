@@ -1,0 +1,177 @@
+```# -*- coding: utf-8 -*-
+'''Instructors_A1Q1
+
+ COMP 1012  SECTION A01/A02
+ INSTRUCTOR Domaratzki/Boyer
+ ASSIGNMENT: A1 Question 1
+ AUTHOR    The Instructors
+ VERSION   2016-Sep-16
+
+ PURPOSE: To evaluate the Calorie content of a doughnut covering and to
+ calculate the Great Circle distance between two cities.
+'''
+
+import math
+import time
+#import matplotlib.pylab as plt
+
+# constant conversions
+CC_PER_LITER   = 1000. # [cm^3/L] conversion factor
+G_PER_KG       = 1000. # [g/kg] conversion factor
+MM_PER_CM = 10.0     # [mm/cm] exact conversion factor
+
+# doughnut properties
+# As per http://mathworld.wolfram.com/Torus.html, the radius a is the radius
+# of the tube of the torus (no coating), and the radius c is the radius from
+# the centre of the hole to the centre of the tube.
+OUTER_DIAM = 11.0     # [cm] diameter including coating
+#HEIGHT = 4.5          # [cm] height including coating on top
+HEIGHT = 4.1          # [cm] height including coating on top
+THICKNESS_MM = 1.0    # [mm] thickness of coating
+THICKNESS = THICKNESS_MM / MM_PER_CM # [cm] thickness of coating
+RADIUS_A = (HEIGHT - THICKNESS) / 2.0 # [cm] radius a; diameter divided by 2
+RADIUS_C = OUTER_DIAM / 2.0  - THICKNESS - RADIUS_A # [cm] radius c
+VOLUME_WITHOUT = 2.0 * math.pi**2 * RADIUS_A**2 * RADIUS_C  #
+                      # [cm^3] volume of doughnut without coating
+VOLUME_WITH    = 2.0 * math.pi**2 * (RADIUS_A + THICKNESS)**2 * RADIUS_C  #
+                      # [cm^3] volume of doughnut with coating
+VOL_HALF_COAT  = (VOLUME_WITH - VOLUME_WITHOUT) / 2.0  #
+                      # [cm^3] volume of coating over half the doughnut
+DENSITY        = 1.36 # [kg/L] density of coating, same as honey
+                      # http://en.wikipedia.org/wiki/Honey
+MASS_HALF_COAT = VOL_HALF_COAT / CC_PER_LITER * DENSITY * G_PER_KG  #
+                      # [g] volume of coating converted to mass
+SUGAR_CAL      = 3.04    # [Cal/g] energy content of granulated sugar
+                      # https://en.wikipedia.org/wiki/
+                      # Honey#Nutritional_and_sugar_profile
+CAL_HALF_COAT = MASS_HALF_COAT * SUGAR_CAL  #
+                      # [Cal] energy content of doughnut coating over half
+
+print ("ASSIGNMENT 1: BASIC CALCULATIONS")
+print ()
+print ("CALORIE CONTENT OF THE COATING ON A DOUGHNUT")
+print()
+print ("CONSTANTS")
+print ("  Conversion:             1 cm = %g mm" % MM_PER_CM)
+print ("  Conversion:             1 L  = %g cm^3" % CC_PER_LITER)
+print ("  Conversion:             1 kg = %g g" % G_PER_KG)
+print ()
+print ("DOUGHNUT DIMENSIONS")
+print ("  Diameter with coating        =%6.1f cm" % OUTER_DIAM)
+print ("  Height, coating on top only  =%6.1f cm" % HEIGHT)
+print ("  Radius a of tube, no coating =%6.1f cm" % RADIUS_A)
+print ("  Radius c to centre of tube   =%6.1f cm" % RADIUS_C)
+print ("  Volume without coating       =%6.1f cm^3" % VOLUME_WITHOUT)
+print ("  Volume with coating all over =%6.1f cm^3" % VOLUME_WITH)
+print ("  Volume of half coating       =%6.1f cm^3" % VOL_HALF_COAT)
+print ("  Coating density              =%6.2f kg/L" % DENSITY)
+print ("  Mass of half coating         =%6.1f g" % MASS_HALF_COAT)
+print ("  Calorie content of sugar     =%6.2f Cal/g" % SUGAR_CAL)
+print ("  Calorie content of coating   =%6.0f Cal" % CAL_HALF_COAT)
+
+
+winnipegLat = 49.91     # [°] latitude of Winnipeg
+winnipegLong = -97.24   # [°] longitude of Winnipeg
+perthLat = -31.94       # [°] latitude of Perth
+perthLong = 115.97      # [°] longitude of Perth
+mumbaiLat = 19.07       # [°] latitude of Mumbai
+mumbaiLong = 72.88      # [°] longitude of Mumbai
+
+EARTH_RAD = 6371  # [km]  https://en.wikipedia.org/wiki/Earth_radius
+DEG_PER_RAD = 180 / math.pi  # [°/rad] degrees to radians conversion
+print ('\nGREAT CIRCLE DISTANCE\n')
+print ( 'Earth radius %10d km' % EARTH_RAD )
+print ( 'Winnipeg')
+print ( '  Latitude:  % 10.2f\N{DEGREE SIGN}' % winnipegLat )
+print ( '  Longitude: % 10.2f\N{DEGREE SIGN}' % winnipegLong )
+print ( 'Mumbai')
+print ( '  Latitude:  % 10.2f\N{DEGREE SIGN}' % mumbaiLat )
+print ( '  Longitude: % 10.2f\N{DEGREE SIGN}' % mumbaiLong )
+
+phi1 = winnipegLat / DEG_PER_RAD         # [rad] latitude of city 1 
+lambda1 = winnipegLong / DEG_PER_RAD     # [rad] longitude of city 1 
+phi2 = mumbaiLat / DEG_PER_RAD            # [rad] latitude of city 2 
+lambda2 = mumbaiLong / DEG_PER_RAD        # [rad] longitude of city 2
+deltaLambda = lambda2 - lambda1          # [rad] difference for Vincenty
+# sub1, sub2 and sub3 are sub-expressions for the Vincenty formula
+sub1 = (math.cos(phi2) * math.sin(deltaLambda))**2  #
+sub2 = (math.cos(phi1)*math.sin(phi2) - 
+        math.sin(phi1)*math.cos(phi2)*math.cos(deltaLambda))**2  #
+sub3 = (math.sin(phi1)*math.sin(phi2) + 
+        math.cos(phi1)*math.cos(phi2)*math.cos(deltaLambda))   #
+deltaSigma = math.atan2(math.sqrt(sub1 + sub2), sub3)  # the Vincenty form.
+
+dist = EARTH_RAD * deltaSigma   # the Great Circle distance
+
+print('Distance:    %10.2f km' % dist)
+
+
+# The following code draws the figure in the assignment. It is provided for
+# your interest. By the end of the course you should be able to understand it.
+'''
+xs  = [0., OUTER_DIAM, OUTER_DIAM, 0., 0.] # [cm] outline of box
+ys  = [0., 0., OUTER_DIAM, OUTER_DIAM, 0.] # [cm] outline of box
+centre = OUTER_DIAM / 2.
+angles = [2. * math.pi * count / 1000. for count in range(0,1001)]
+radiusOuter = RADIUS_C + RADIUS_A + THICKNESS
+xs2 = [centre + radiusOuter * math.cos(angle) for angle in angles]
+ys2 = [centre + radiusOuter * math.sin(angle) for angle in angles]
+radiusInner = RADIUS_C - RADIUS_A - THICKNESS
+xs3 = [centre + radiusInner * math.cos(angle) for angle in angles]
+ys3 = [centre + radiusInner * math.sin(angle) for angle in angles]
+fig = plt.figure(1)
+plt.clf()
+fig.add_subplot(211, aspect="equal")
+plt.plot(xs,ys, xs2, ys2, "k-", xs3, ys3, "k-")
+half = (len(xs2) + 1) // 2
+plt.fill_between(xs2[0:half], ys2[0:half], y2=ys2[half-1:],
+                 facecolor='#FFCC66', alpha=1.)
+plt.fill_between(xs3[0:half], ys3[0:half], y2=ys3[half-1:],
+                 facecolor='#FFFFFF', alpha=1.0)
+plt.xlabel("$x$ position [cm]")
+plt.ylabel("$y$ position [cm]")
+plt.title("Doughnut in Box, top view")
+plt.xlim(-OUTER_DIAM / 10., OUTER_DIAM * 1.1)
+plt.ylim(-OUTER_DIAM / 10., OUTER_DIAM * 1.1)
+
+sp1 = fig.add_subplot(212, aspect="equal")
+
+xs  = [0., OUTER_DIAM, OUTER_DIAM, 0., 0.] # [cm] outline of box
+ys  = [0., 0., HEIGHT, HEIGHT, 0.] # [cm] outline of box
+xs2 = [centre - RADIUS_C + RADIUS_A * math.cos(angle) for angle in angles]
+ys2 = [RADIUS_A + RADIUS_A * math.sin(angle) for angle in angles]
+xs3 = [centre + RADIUS_C + RADIUS_A * math.cos(angle) for angle in angles]
+ys3 = [RADIUS_A + RADIUS_A * math.sin(angle) for angle in angles]
+topAngles = angles[0:(len(angles) + 1) // 2]
+xs4 = [centre - RADIUS_C + (RADIUS_A + THICKNESS) * math.cos(angle)
+       for angle in topAngles]
+xs4 = xs2[:1] + xs4 + xs2[half - 1 : half]
+ys4 = [RADIUS_A + (RADIUS_A + THICKNESS) * math.sin(angle)
+       for angle in topAngles]
+ys4 = ys2[:1] + ys4 + ys2[half - 1 : half]
+xs5 = [centre + RADIUS_C + (RADIUS_A + THICKNESS) * math.cos(angle)
+       for angle in topAngles]
+xs5 = xs3[:1] + xs5 + xs3[half - 1 : half]
+ys5 = [RADIUS_A + (RADIUS_A + THICKNESS) * math.sin(angle)
+       for angle in topAngles]
+ys5 = ys3[:1] + ys5 + ys3[half - 1 : half]
+
+plt.plot(xs,ys, xs2, ys2, "k-", xs3, ys3, "k-", xs4, ys4, "k-", xs5, ys5, "k-")
+plt.fill_between(xs4[1:-1], ys4[1:-1], y2=(HEIGHT - THICKNESS) / 2.,
+                 facecolor='#FFCC66')
+plt.fill_between(xs2[:half], ys2[:half], y2=ys2[half-1:], facecolor="white")
+plt.fill_between(xs5[1:-1], ys5[1:-1], y2=(HEIGHT - THICKNESS) / 2.,
+                 facecolor='#FFCC66')
+plt.fill_between(xs3[:half], ys3[:half], y2=ys3[half-1:], facecolor="white")
+
+plt.xlabel("$x$ position [cm]")
+plt.ylabel("Vertical position [cm]")
+plt.title("Doughnut in Box, cross section")
+plt.xlim(-OUTER_DIAM / 10., OUTER_DIAM * 1.1)
+plt.ylim(-OUTER_DIAM / 10., HEIGHT + OUTER_DIAM * 0.1)
+plt.show()
+'''
+print ("\nProgrammed by the Instructors")
+print ("Date: " + time.ctime())
+print ("End of processing")
+

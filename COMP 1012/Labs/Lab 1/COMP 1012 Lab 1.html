@@ -1,0 +1,157 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab01.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>COMP 1012 Lab 1</title>
+    <link rel="stylesheet" type="text/css" href="./COMP 1012 Lab 1_files/COMP1012Lab.css">
+  </head>
+  <body><span class="default">
+
+    <h1 style="font-size:20pt">COMP 1012 Lab 1</h1>
+    <p><strong>September 12 to 16, 2016</strong> </p>
+
+    <h2>Material covered:</h2>
+    <ul>
+      <li>Claimid and a small survey.</li>
+      <li>Editing and running Python programs.</li>
+      <li>Computing formulas.</li>
+    </ul>
+    <h2>Notes:</h2>
+    <p> 
+      All Python exercises are to be done using <span class="codeword">Anaconda
+      Python</span> Integrated Development Environment.
+    </p>
+    <p> 
+      If you have a laptop computer, and need help installing Anaconda Python
+      and running programs with it, bring the laptop to the lab. The
+      demonstrator may be able to help you, as time permits. 
+    </p>
+    <p> 
+      At some point during the lab, the demonstrator will circulate an
+      attendance sheet. Sign it and pass it on. 
+    </p>
+
+    <h2>Exercise 1: Gaining Access to Lab Computers</h2>
+    <p> 
+      If you have not done so, you must claim your U of M computer account
+      using Iridium. From a logged in computer (maybe this is a good time to
+      meet the person sitting next to you in the lab!) open a web browser and
+      go to <a href="http://iridium.umanitoba.ca/">http://iridium.umanitoba.ca</a>.
+      Click on "<span class="codeword">Create UMnetID</span>". You will have
+      to identify yourself, and then provide answers to a number of personal
+      questions so that you can later log in even if your forget your
+      password. Make sure you register for the <b><span class="codeword">INS</span></b>
+      service. It enables you to access lab computers. Record your 
+      <span class="codeword">UMnetID</span> and password or otherwise take
+      steps to remember them. If you have already claimed your ID, you can
+      also change your password or answers to security questions using 
+      <a class="codeword" href="http://iridium.umanitoba.ca/">Iridium</a>. The
+      same user <span class="codeword">UMnetID</span> will be used to log into
+      the course UM Learn website. 
+    </p>
+    <p>
+      The login procedure for the lab computers has changed this year for
+      students. To login, you must enter your <em>complete U of M email
+      address</em>. Your email address is composed of: your <em>UMnetID</em>,
+      followed by the <em>@</em> symbol, and then <em>myumanitoba.ca</em>. For example,
+      a student with UMnetID of chan139, the U of M email address is:
+      <em>chan139@myumanitoba.ca</em>
+    </p>
+
+    <h2>Exercise 2: Ensuring that Python works on your lab computer</h2>
+    <p>
+      For this course we are using <span class="codeword">Anaconda 
+      Python</span>. You can acquire it for your personal computer from 
+      <a href="http://continuum.io/downloads">this link</a>.
+    </p>
+    <p>
+      Click on the <span class="codeword">Start</span> button, choose 
+      <span class="codeword">INS Programs</span>, and then 
+      <span class="codeword">Programming</span>. In the 
+      <span class="codeword">Programming</span> sub-menu, you should see 
+      <span class="codeword" "="">Spyder (Python IDE)</span>. 
+      Click on it to start the Spyder IDE.
+    </p>
+      
+    <h2>Exercise 3: An introductory survey</h2>
+    <p> 
+      Please spend a few minutes answering some questions about yourself
+      (anonymously) by filling out and submitting 
+      <a href="https://universityofmanitoba.desire2learn.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=235692&amp;type=survey&amp;rCode=UManitoba-347728">
+      this Survey</a>. 
+    </p>
+
+    <h2>Exercise 4: Running programs from class</h2>
+    <p> 
+      The Week 1 class notes are available as a 
+      <a href="http://www.cs.umanitoba.ca/~comp1012/2016C/1012_2016C_Week_01_v1.pdf">
+      pdf file on the course website</a>. Try one of the computation exercises 
+      <em>described in those notes:</em>
+    </p>
+    <ul>
+      <li>estimate the volume of the <em>Great Pyramid of Ghiza</em>;</li>
+      <li>estimate the <em>force of a jet of water on a plate</em>;</li>
+    </ul>
+    <p> With these problems, try the following: </p>
+    <ul>
+      <li>
+        evaluate some of the formulas shown in <em>interactive mode</em>
+        (in the IPython console window), line by line, to see what the
+        interface does;
+      </li>
+      <li>
+        write instructions for each problem in a <em> separate script
+        file</em> (edit it in the left window and save it with a file name
+        that ends with <span class="codeword">".py"</span>), and run the file
+        (green triangle icon), fixing any errors that are detected so that it
+        produces the right results;
+      </li>
+      <li>
+        write the code on your own without referring to the solutions in the
+        notes, and check those solutions to <em>compare with your results;</em>
+      </li>
+      <li>
+        <em>modify the data</em> to solve similar but different
+        problems, and <em>modify the output statements</em> to make the
+        output you would like to see.
+      </li>
+    </ul>
+    <p> 
+      Add comment lines similar to the following to the beginning of your
+      script files. We will require documentation of this type in all your
+      assignments. 
+    </p>
+    <div class="code string">
+""" PyramidVolume
+
+COMP 1012 SECTION A01 or A02
+INSTRUCTOR: Domaratzki or Boyer
+ASSIGNMENT: Lab 1, Exercise 4
+AUTHOR: [your name]
+VERSION: 2016-Sep-14
+
+PURPOSE: Calculate the volume of the Great Pyramid of Ghiza and
+display the volume in the shell window.
+"""
+      </div>
+    <p>
+      Save the file to the <span class="codeword">H:</span> (Home) drive on
+      your lab computer if you can; otherwise use the desktop or a USB drive.
+      You may have material stored on the "old" <span class="codeword">H:</span> drive
+      if this isn't your first year as a student. You will see instructions on
+      the computer Desktop about retrieving that material and moving it to the
+      "new" <span class="codeword">H:</span> drive.
+    </p>
+    <p>
+      The desktop on a lab computer is stored on the computer itself, not on
+      your network drive, so you should copy your files to a more permanent
+      location before you leave. A good approach is to carry a thumb drive and
+      plug it into the lab computer, using it to store your programs. Remember
+      to take it with you!
+    </p>
+    <hr> 
+    </span>
+  
+
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

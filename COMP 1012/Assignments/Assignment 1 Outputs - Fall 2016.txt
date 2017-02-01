@@ -1,0 +1,36 @@
+ASSIGNMENT 1: BASIC CALCULATIONS
+
+CALORIE CONTENT OF THE COATING ON A DOUGHNUT
+
+CONSTANTS
+  Conversion:             1 cm = 10 mm
+  Conversion:             1 L  = 1000 cm^3
+  Conversion:             1 kg = 1000 g
+
+DOUGHNUT DIMENSIONS
+  Diameter with coating        =  11.0 cm
+  Height, coating on top only  =   4.1 cm
+  Radius a of tube, no coating =   2.0 cm
+  Radius c to centre of tube   =   3.4 cm
+  Volume without coating       = 268.5 cm^3
+  Volume with coating all over = 296.0 cm^3
+  Volume of half coating       =  13.8 cm^3
+  Coating density              =  1.36 kg/L
+  Mass of half coating         =  18.7 g
+  Calorie content of sugar     =  3.04 Cal/g
+  Calorie content of coating   =    57 Cal
+
+GREAT CIRCLE DISTANCE
+
+Earth radius       6371 km
+Winnipeg
+  Latitude:       49.91°
+  Longitude:     -97.24°
+Mumbai
+  Latitude:       19.07°
+  Longitude:      72.88°
+Distance:      12283.37 km
+
+Programmed by the Instructors
+Date: Wed Sep 28 10:14:17 2016
+End of processing

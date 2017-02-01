@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+''' COMP 1012  SECTION A01/A02
+    INSTRUCTOR Domaratzki, Boyer
+    ASSIGNMENT: A5 Q1
+    AUTHOR    The Instructors
+    VERSION   2017-Jan-10
+ 
+    PURPOSE: to calculate and plot model polynomials
+'''
+
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+
+#............................................................calculateModelPoly
+def calculateModelPoly(xs, ys, degree):
+    '''calculate the coefficients of the model polynomial of specified degree'''
+    vv = np.vander(xs, degree+1, increasing=True)  # vandermonde matrix
+    vvt = np.transpose(vv)                         # transpose of vv
+    aa = np.dot(np.dot(np.linalg.inv(np.dot(vvt, vv)), vvt), ys)  # result
+    return aa
+    
+#..................................................................evaluatePoly
+def evaluatePoly(poly, xs):
+    '''Use Horner's method to evaluate the polynomial with coefficienmts
+    contained in poly'''
+    
+    yValues = np.ones(len(xs)) * poly[-1]   # the evaluated y-values
+    for coef in poly[-2::-1]:
+        yValues = yValues * xs + coef
+    return yValues
+
+#...................................................................getValidInt
+def getValidInt(lo, hi, prompt):
+    '''Prompt the user for a valid integer between lo and hi, inclusive'''
+
+    # define the error messages here
+    errMsg0 = "Error: %s is not an integer\n"       #
+    errMsg1 = "Error: %s is not between %d and %d\n" % ("%s", lo, hi)  #
+
+    errMsg = '\b'         # the current error msg
+    while len(errMsg) > 0:
+        userInput = input(errMsg + prompt)     #  the user's input
+        try:
+            errMsg = ''
+            choice = int(userInput)            # what user chose
+            if choice < lo or choice > hi:
+                errMsg = errMsg1 % choice
+        except:
+            errMsg = errMsg0 % userInput
+    return choice
+
+#......................................................................loadData
+def loadData(fileName):
+    '''read x- and y-values from the specified data file and return them'''
+    infile = open(fileName, 'r')    # the input file
+    nPts = int(infile.readline())   # first line contains number of points
+    xVals = []                      # a list for the x-values
+    yVals = []                      # a list for the y-values
+    for pos in range(nPts):         # loop counter (not used)
+        pt = infile.readline().split(',')    # contains the x and y values
+        xVals.append(float(pt[0]))
+        yVals.append(float(pt[1]))
+    return np.array(xVals), np.array(yVals)
+
+#................................................................plotModelPolys
+def plotModelPolys(xs, ys, start, end, filename):
+    '''Produce a plot containing the file data, plotted as a scatterplot,
+    and the model polynomial plots, with degrees in [start, end]'''
+    plt.scatter(xs, ys)
+    xModel = np.linspace(np.min(xs), np.max(xs), 1000)  # x-values for model
+    for deg in range(start, end+1):              # degree of model polynomial
+        poly = calculateModelPoly(xs, ys, deg)   # the model polynomial
+        lgnd = 'degree %d model poly' % deg      # legend entry
+        yModel = evaluatePoly(poly, xModel)      # y-values for model
+        plt.plot(xModel, yModel, label=lgnd)     # plot the model poly
+    plt.legend(loc = 'best')                     # add the legend
+    plt.title('Data from %s' % filename)
+    plt.xlabel('x values')
+    plt.ylabel('y values')
+    plt.show()
+    plt.savefig(filename)
+    return
+
+#......................................................................showMenu
+def showMenu():
+    '''Display a menu to allow the user to choose what to do next'''
+    
+    MENU = '''Select one of the following options: 
+  1. Load a data dataset.  
+  2. Display model polynomials for the dataset.  
+  3. Quit.'''         # the user menu
+    datafile = None   # the name of the data file
+    xs = None         # x-values read from file
+    ys = None         # y-values read from file
+    dataLoaded = False  # 
+    start = 0         # the starting degree
+    end = 0           # the ending degree
+    outfile = ''      # the name of the output file
+
+    # define the error messages here
+    errMsg0 = "Error: no data loaded yet\n"      #
+    
+    print(MENU)
+    choice = getValidInt(1,3, "Enter your selection: ")
+    while choice != 3:
+        if choice == 1:
+            datafile = input("Enter the filename: ")
+            xs, ys = loadData(datafile)
+            print("Data Loaded.")
+            dataLoaded = True
+        elif choice == 2:
+            if not dataLoaded:
+                print(errMsg0)
+            else:
+                start = getValidInt(1,20, "Enter starting degree: ")
+                end = getValidInt(1,20, "Enter ending degree: ")
+                outfile = input('Enter the output filename: ')
+                plotModelPolys(xs, ys, start, end, outfile)
+        print(MENU)
+        choice = getValidInt(1,3, "Enter your selection: ")
+    return
+
+#...............................................................showTermination
+def showTermination():
+    '''Display the termination message'''
+    print ("\nProgrammed by The Instructors")
+    print ("Date: " + time.ctime())
+    print ("End of processing")
+    return
+
+# run the script    
+showMenu()
+showTermination()

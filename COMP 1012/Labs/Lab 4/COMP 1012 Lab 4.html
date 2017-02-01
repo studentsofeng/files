@@ -1,0 +1,200 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab04.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>COMP 1012 Lab 4</title>
+    <link rel="stylesheet" type="text/css" href="./COMP 1012 Lab 4_files/COMP1012Lab.css">
+
+  </head>
+  <body>
+    <div class="default">
+      <h1 style="font-size:20pt">COMP 1012 Lab 4</h1>
+      <p><strong>Oct. 17 - 21, 2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>Lists and tuples.</li>
+        <li>Lists and loops.</li>
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+
+      <h2>Exercise 1: Tuple warm-up</h2>
+      <p> 
+        Write a script that will perform some simple manipulations on tuples.
+        In this program, they will be used to represent points and vectors in
+        two-dimensional space. Write just enough code for each step, and run
+        your script after each. 
+      </p>
+      <ol>
+        <li> 
+          Create two tuples representing points in a plane—
+          <span class="codeword">A:(3.5,1.2)</span>
+          and <span class="codeword">B:(-2.7,-3.2)</span>. Print them. 
+        </li>
+        <li> 
+          Create another tuple representing a vector from <span class="codeword">A</span>
+          to <span class="codeword">B</span> (that is, <span class="codeword">B-A</span>).
+          Notice you can't just subtract one from the other; tuples don't
+          support subtraction. Perform the subtraction one coordinate at a time
+          by subscripting in the original tuples. Print the vector. What is
+          wrong with the following code, if <span class="codeword">ptBminusA</span>
+          is the difference vector tuple? Hint: how are tuples used with the
+          format operator % ?
+          <div class="code"><span class="keyword">print</span> (<span class="string">"ptB - ptA: %s"</span> % ptBminusA)</div>
+        </li>
+        <li> 
+          Create another tuple representing a point 
+          <span class="codeword">C:(4.2, 2.8)</span>, and a tuple for the vector 
+          <span class="codeword">C-B</span>.
+          Print the points and vector. 
+        </li>
+        <li>
+          Calculate and print the sum of the two difference vectors 
+          <span class="codeword">(C-B) + (B-A)</span> by adding their 
+          corresponding elements. Calculate and print the vector difference
+          <span class="codeword">C-A</span>. Are these two the same?
+          Test their equality using the <span class="codeword">==</span>
+          operator. 
+        </li>
+        <li> 
+          Calculate and print the length of the vector 
+          <span class="codeword">(C-A) - ((C-B) + (B-A))</span> 
+          using the standard distance formula (square
+          root of the sum of the squares of the elements). Is it less than 0.00001? 
+        </li>
+      </ol>
+      
+      
+      <h2>Exercise 2: List warm-up</h2>
+      <p> 
+        Write a program that will create and manipulate some simple lists of
+        sequences. Write just enough code for each step, and run your program
+        after each. Note: the range function behaves as follows: 
+      </p>
+      <div class="code">
+<span class="function">list</span>(<span class="function">range</span>(7)) gives [0, 1, 2, 3, 4, 5, 6] 
+<span class="function">list</span>(<span class="function">range</span>(12, 16)) gives [12, 13, 14, 15] 
+<span class="function">list</span>(<span class="function">range</span>(12, 24, 3)) gives [12, 15, 18, 21] 
+<span class="function">list</span>(<span class="function">range</span>(17, 8, -3)) gives [17, 14, 11] 
+Slice: <span class="function">list</span>(<span class="function">range</span>(11,17)[0:1]) gives [11]
+Slice: <span class="function">list</span>(<span class="function">range</span>(11,17)[1 : 4]) gives [12, 13, 14] 
+Slice: <span class="function">list</span>(<span class="function">range</span>(11,17)[1 : 5 : 2]) gives [12, 14] 
+</div>
+      <ol>
+        <li> 
+          Create a list <span class="codeword">U</span> containing the
+          values <span class="codeword">[6, 5, 4]</span>. Print it. Why does
+          the following code work when the sample code above did not (where 
+          <span class="codeword">listU</span> is the list you created)? 
+        </li>
+        <div class="code"> <span class="keyword">print</span> (<span class="string">"listU: %s"</span> % listU) </div>
+        <li> 
+          Create another list <span class="codeword">V</span> containing the
+          values <span class="codeword">[1, 2, 3]</span>. Subtract each element
+          in the list from the corresponding element of <span class="codeword">U</span>
+          to generate a list containing <span class="codeword">[5, 3, 1]</span>.
+          You do not need to use a loop (yet). Note that you should <em>change</em>
+          list <span class="codeword">V</span>, <em>not</em>
+          create a new list. Changing a list like this is something you could
+          not do with tuples. Print the list. 
+        </li>
+        <li> 
+          Create list <span class="codeword">W</span> using the builtin
+          functions <span class="codeword builtin">list</span> and 
+          <span class="codeword builtin">range</span>;
+          <span class="codeword">W</span>
+          should contain the <em>first ten positive odd</em>
+          numbers. Print the list. 
+        </li>
+        <li> 
+          Create a list <span class="codeword">X</span> with 
+          <span class="codeword builtin">list</span>
+          and <span class="codeword builtin">range</span>
+          that starts with the second last value of the previous list (get that
+          value using a subscript) and counts by odd numbers down to 7
+          (inclusive). Print the list. 
+        </li>
+        <li> 
+          Concatenate the lists <span class="codeword">W</span>, 
+          <span class="codeword">X</span>
+          and <span class="codeword">V</span> (in that order) to make a new
+          list <span class="codeword">Y</span> that counts odd numbers up and
+          back down again. Print the resulting list, and its length. 
+        </li>
+        <li> 
+          Print a slice of <span class="codeword">Y</span> containing the 5
+          middle values; that is, the slice contains the largest number in the
+          list and the two values before and after it. <em>Hint</em>: use
+          floor division to calculate the index of the middle value.
+        </li>
+        <li> 
+          Print a slice of <span class="codeword">Y</span> containing every
+          second odd number starting from 3 (3, 7, 11, etc.) up to the largest
+          such value. 
+        </li>
+      </ol>
+      
+      <p>
+        As an additional exercise (on your own time), create a constant called
+        <span class="codeword">HALFCOUNT</span> that contains the number 10,
+        indicating the number of values to go in <span class="codeword">W</span>.
+        Modify your subsequent steps so that a single change to this constant
+        changes the results of all those steps to match (e.g. if 
+        <span class="codeword">HALFCOUNT == 5</span> then you will get 
+        <span class="codeword">[1,3,5,7,9,7,5,3,1]</span>
+        in step 5).
+      </p>
+      
+      
+      <h2>Exercise 3: Creating lists with a while loop</h2>
+      <p> 
+        Use either one or two <span class="codeword">while</span> loops to
+        generate the same list that you produced in step 5 of the previous
+        exercise (odd numbers counting up and down) by counting through the
+        values; use <span class="codeword">listY.append</span> to add each
+        value to the end. 
+      </p>
+      <p> 
+        Try to do it with a single loop. To make a single loop count up and
+        then down, use a boolean variable called
+        <span class="codeword">increasing</span>.
+        Each time through the loop, set <span class="codeword">increasing</span>
+        to <span class="codeword">True</span> if you have fewer than 
+        <span class="codeword">10</span>
+        (or <span class="codeword">HALFCOUNT</span>) entries, and 
+        <span class="codeword">False</span>
+        thereafter. Rely on the knowledge that <span class="codeword">True</span>
+        is an alias for <span class="codeword">1</span> and 
+        <span class="codeword">False</span>
+        is equivalent to <span class="codeword">0</span> to come up with
+        expressions that will either increase or decrease the loop counter. If
+        you know what an "<span class="codeword">if</span> statement" is, do 
+        <em>not</em> use it! <em>Hint</em>: you could use a short list of
+        possible increments, or you could use a power (and many other
+        expressions). 
+      </p>
+      <p> 
+        Print your list after it has been generated. 
+      </p>
+    </div>
+  
+
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

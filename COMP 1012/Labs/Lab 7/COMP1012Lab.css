@@ -1,0 +1,144 @@
+/* COMP1012Lab.css
+ *  * revised: 2016-01-07
+ *   */
+h2, h3 { 
+  font-family: sans-serif; 
+  font-weight: bold; 
+  border-top-width: thin; 
+  border-right-width: thin; 
+  border-bottom-width: thin; 
+  border-left-width: thin; 
+  border-bottom-style: solid; 
+  border-top-color: #FF0000; 
+  border-right-color: #FF0000; 
+  border-left-color: #FF0000; 
+} 
+h2 { 
+  font-size: 14pt; 
+  border-bottom-color: #FF0000; 
+} 
+h3 { 
+  font-size: 13pt; 
+  border-bottom-color: blue ; 
+} 
+.code, .codeword { 
+  font-family: monospace; 
+  font-weight: 500; 
+} 
+.code { 
+  font-size: 11pt ; 
+  background-color: #FFFFB0; 
+  border-top: dotted thin black; 
+  border-bottom: dotted thin black; 
+  padding-top: 1em; 
+  padding-bottom: 1em; 
+  padding-left: .5em; 
+  padding-right: .5em; 
+  margin-right: 20px; 
+  margin-left: 20px; 
+  white-space: pre;
+} 
+.codeword { 
+  font-size: 1em; 
+} 
+.instruction {
+  color: darkcyan;
+}
+.output { 
+  font-family: monospace; 
+  font-size: 11pt ; 
+  background-color: E0d0a0; 
+  border-style: solid; 
+  border-width: thin; 
+  line-height: 110%; 
+  padding: 0.5em; 
+  white-space: pre;
+} 
+.aside { 
+  background-color: lightGrey; 
+  border: solid thin black; 
+  font-size: 10pt; 
+  margin-top: .5em; 
+  margin-bottom: .5em; 
+  margin-right: 20px; 
+  margin-left: 20px; 
+  padding-top: .5em; 
+  padding-bottom: .5em; 
+  padding-left: 1em; 
+  padding-right: 1em; 
+} 
+.math {
+  font-family: serif;
+}
+.todo {
+  color: blue;
+}
+td.mine, th.mine { 
+  font-family: serif ; 
+  font-size: 10 pt ; 
+  vertical-align: bottom ; 
+  text-align: center ; 
+} 
+a, a:link, a:visited, p, li { 
+  font-family: serif ; 
+  font-size: 12pt ; 
+  line-height: 115% ;
+} 
+pre { 
+  line-height: 80% ; 
+} 
+em{
+  font-weight: bold;
+  font-style: italic;
+}
+.red{
+  color: red;
+}
+.dkred{
+  color: darkred;
+}
+.grn{
+  color: green;
+}
+.blue{
+  color: blue;
+}
+.ltblue{
+  color: lightblue;
+}
+.blk{
+  color: black;
+}
+.in{
+  color: darkblue;
+}
+.plt{
+  color: orange;
+}
+.em{font-weight: bolder; }
+
+/* colours for the Anaconda Editor */
+.keyword{color: #0000ff;}
+.builtin{color: #900090;}
+.definition{color:#000000; font-weight:bolder;}
+.comment{color: #adadad; font-style: italic;} 
+.string{color: #00aa00;}
+.number{color: #800000;}
+.boolean{color: magenta;}
+.truefalse{color:green; font-weight:bolder;}
+.function{color: purple;}
+.numpy{color: saddlebrown;}
+.triplequote{color: green;}
+
+/* colours for the Anaconda IPython console */
+.ikeyword{color: #008000; font-weight:bolder;}
+.ibuiltin{color: #008000;}
+.idefinition{color:#008000; font-weight:bolder;}
+.icomment{color: #80ffff; font-style: italic;} 
+.istring{color: #ba2121;}
+.inumber{color: #666666;}
+.input{color: #000080;}
+.ioutput{color:#800000;}
+.imodulename{color: #0000ff; font-weight:bolder;}
+
+

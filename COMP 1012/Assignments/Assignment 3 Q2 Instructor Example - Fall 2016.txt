@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+''' COMP 1012  SECTION A01/A02
+    INSTRUCTOR Domaratzki, Boyer
+    ASSIGNMENT: A3 Q2
+    AUTHOR    The Instructors
+    VERSION   2016-Oct-22
+ 
+    PURPOSE: to determine the score of a 10-pin bowling game
+    
+    NOTE: This solution is slightly different than specified in the assignment.
+    It uses a non-interactive test function to facilitate testing.
+    It also prints the frames and extra balls (if needed) as a list, again
+    to facilitate testing.
+'''
+
+import time
+
+DIGITS = '0123456789'     # String containing the digits
+SPARE = '/'               # The spare character
+STRIKE = 'X'              # The strike character
+FRAMES_PER_GAME = 10      # Number of frames per game
+SPARE_SCORE = 10          # Score for a spare
+
+#....................................................................scoreFrame
+def scoreFrame(frame):
+    '''Determine the score of this frame
+    Note the use of the index function to convert characters into numbers.
+    By adding the STRIKE character to the end of DIGITS, it will be
+    correctly converted into the number 10.'''
+    
+    result = 0            # The result of this frame
+    if len(frame) == 0:
+        result = 0
+    elif frame[-1] == SPARE:
+        result = SPARE_SCORE
+    else:
+        result = sum([(DIGITS+STRIKE).index(xx) for xx in frame])
+    return result
+        
+#.....................................................................scoreGame
+def scoreGame(game):
+    '''Determine the score of this game
+    Note this function also returns a list of the frames, which was not
+    required in the assignment.'''
+    
+    frames = []          # A list of the frames (not required)
+    pos = 0              # position in the game string
+    score = 0            # score of the game
+    for frame in range(FRAMES_PER_GAME):
+        end = (pos+1, pos+2)[game[pos] in DIGITS]  # where this frame ends
+        theFrame = game[pos:end]                   # chars in this frame
+        frames += [theFrame]
+        pos += len(theFrame)
+        if theFrame[-1] == STRIKE:
+            extraBalls = game[pos: pos+2]          # the extra balls for frame
+        elif theFrame[-1] == SPARE:
+            extraBalls = game[pos]
+        else:
+            extraBalls = ''
+        score += scoreFrame(theFrame) + scoreFrame(extraBalls) 
+    if pos < len(game):
+        frames += [game[pos: len(game)]]
+    return score, frames
+    
+#...............................................................showTermination
+def showTermination():
+    """
+    Purpose: to print a final message identifying the programmer,
+    giving the date, and saying the program has finished.
+    """
+    
+    print ("\nProgrammed by The Instructors")
+    print ("Date: " + time.ctime())
+    print ("End of processing")
+    return
+
+#..................................................................validateGame
+def validateGame(game):
+    '''Determine if the game contains only valid characters'''
+    
+    valid = [xx in (DIGITS+SPARE+STRIKE) for xx in game]  # list of T/F
+    return sum(valid) == len(game)
+
+#..........................................................................test
+def test():
+    '''Non-interactive test function'''
+    
+    GAMES = ('9/X12XX9/18333333',
+             '9/X12XX9/1833333/X',
+             '9/X12XX9/183333X72',
+             'XXXXXXXXXXXX',
+             'XXXXXXXXX00',
+             'XXXXXXXXXX00',
+             'XXXXXXXXX9/3')    # the games from the assignment
+    for game in GAMES:
+        print(game)
+        score, frames = scoreGame(game)   # the score and the game
+        print('%3d   %s' % (score, frames))
+        
+    return
+    
+test()

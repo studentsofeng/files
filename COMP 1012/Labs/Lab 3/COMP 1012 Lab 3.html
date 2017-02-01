@@ -1,0 +1,149 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab03.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>COMP 1012 Lab 3</title>
+    <link rel="stylesheet" type="text/css" href="./COMP 1012 Lab 3_files/COMP1012Lab.css">
+  </head>
+  <body>
+    <div class="default">
+      <h1 style="font-size:20pt">COMP 1012 Lab 3</h1>
+      <p><strong>Sep. 26 to 30, 2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li>Loops and sums.</li>
+        <li>Exploring precision.</li>
+        <li>Data types.</li>
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+
+      <h2>Exercise 1: Fibonacci Numbers</h2>
+      <p>
+        The sequence of 
+        <a href="http://en.wikipedia.org/wiki/Fibonacci_numbers">Fibonacci numbers</a> 
+        is <span class="math">1, 1, 2, 3, 5, 8, 13, 21, 34, ... <em>F<sub>n</sub></em></span>
+        where the sequence starts with two 1s and every subsequent Fibonacci
+        number is the sum of the previous two 
+        (<span class="math"><em>F</em><sub><em>n</em>+1</sub></span>
+        = <span class="math"><em>F<sub>n</sub></em></span> + 
+        <span class="math"><em>F</em><sub><em>n</em>-1</sub></span>;
+        for example, 21 = 8 + 13). Sometimes 0 is included as the initial
+        element: <span class="math"><em>F</em></span><sub>0</sub> = 0.
+      </p>
+      <p class="todo">
+        Write a program which uses a <span class="codeword">while</span>
+        loop to calculate and print <span class="math"><em>n</em></span> and 
+        <span class="math"><em>F<sub>n</sub></em></span>, as in the following sample
+        output. Print all Fibonacci numbers less than 10<sup>30</sup>.
+      </p>
+      <div class="output">
+      n  Fn
+      1   1
+      2   1
+      3   2
+      4   3
+      5   5
+      6   8
+      7  13
+      8  21
+      9  34
+     10  55
+     11  89
+     12 144
+     ...
+     </div>
+    <p>
+      When you first try this task, coding the loop can be surprisingly
+      tricky. Your loop will have to keep track of the previous <em>two</em>
+      Fibonacci numbers in order to add them together. For this aim you may
+      use some temporary variables to store the previous Fibonacci numbers in
+      them. (It greatly simplifies the code if you use <em>tuple
+      assignment</em>, where two assignments are done simultaneously. (We will
+      discuss it in the class later).
+    </p>
+    <p>
+      Note that the numbers you print become large enough to exceed the maximum
+      possible integer value in other programming languages, and the maximum
+      number of digits of precision possible with floats.
+    </p>
+    
+    
+    <h2>Exercise 2: Fibonacci Identities and Summing</h2>
+    <p>
+      Fibonacci numbers are fascinating to mathematicians and hobbyists because
+      they have so many simple properties. For example, 
+      <em>the sum of the first <span class="math">n</span> Fibonacci numbers
+      is itself one less than <span class="math">F<sub>n+2</sub></span></em>.
+      <span class="todo">To check this property, modify the code from Exercise 1
+        to sum the Fibonacci numbers you calculate and print the total out too,
+        like this (make sure to leave room to line up the columns):</span>
+      </p>
+    <div class="output"> 
+    n Fn                  Sum of Fn
+    1  1                     1
+    2  1                     2
+    3  2                     4
+    4  3                     7
+    5  5                    12
+    6  8                    20
+    7 13                    33
+    8 21                    54 [one less than F<sub>10</sub>]
+    9 34                    88
+   10 55                   143
+    ...
+    </div>
+    
+    
+    <h2>Exercise 3: Root Approximator</h2>
+    <p>
+      The Heron method for computing square roots starts with a guess and
+      refines it. If <span class="math"><em>x</em></span> is a guess for the
+      square root of <span class="math"><em>a</em></span>, then the average of
+      <span class="math"><em>x</em></span> and 
+      <span class="math"><em>a/x</em></span> is a better guess. 
+      <span class="todo">Write a loop that starts with a guess of 
+      <span class="math"><em>x</em></span> is 1, and then calculates guesses
+      (averages) until the difference between successive guesses is within
+      10<sup>-6</sup>.</span>
+    </p>
+    <p>
+      Once you are confident that your loop works, <span class="todo"><em>nest
+      it</em> within another loop that will print out the Heron-estimated
+      square roots <strong>and</strong> the <code>math.sqrt</code> of the
+      following values: 0.3, 0.5, 0.9, 1.7, 3.3, etc. up to 819.3</span> (start
+      at 0.3, and add 0.2, then 0.4, then 0.8, etc.).
+    </p>
+    <p>
+      The structure of the code should look something like this:
+    </p>
+    <div class="code">
+      aa, diff = ?, ? <span class="comment"># number to find root of, and difference between numbers</span>
+      <span class="keyword">while</span> aa &lt; <span class="literal">820</span> :
+        xx = ?
+        <span class="keyword">while</span> <span class="builtin">abs</span>(...) &gt; <span class="literal">1.e-6</span> : 
+          xx = ... <br>
+        <span class="keyword">print</span> (<span class="string">"square root of ..."</span>
+        diff = ? 
+        aa = ?
+    </div>
+  
+
+</div></body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>

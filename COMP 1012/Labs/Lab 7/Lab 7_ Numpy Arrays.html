@@ -1,0 +1,374 @@
+
+<!-- saved from url=(0053)http://www.cs.umanitoba.ca/~comp1012/2016C/Lab07.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Lab 7: Numpy Arrays</title>
+    <link rel="stylesheet" type="text/css" href="./Lab 7_ Numpy Arrays_files/COMP1012Lab.css">
+  </head>
+  <body>
+    <div class="default">
+      <h1 style="font-size:20pt">COMP 1012 Lab 7</h1>
+      <p><strong>November 14 to 18, 2016</strong> </p>
+      <h2>Material covered:</h2>
+      <ul>
+        <li><span class="codeword">numpy</span> arrays.</li>
+      </ul>
+      <h2>Notes:</h2>
+      <p> 
+        All Python exercises are to be done using <span class="codeword">Anaconda
+        Python</span> Integrated Development Environment.
+      </p>
+      <p>
+        At some point during the lab, the demonstrator will circulate an
+        attendance sheet. Sign it and pass it on.
+      </p>
+      <p>
+        It is difficult to create a lab that will keep every student occupied
+        for exactly 50 minutes. If you are finished early, use the time to
+        explore other options in your programs, or to help others around you.
+        Most learning takes place when you try to do something and you don't
+        know how at first. If you do not finish in the time available, look at
+        the rest of the lab at some other time before next week's lab. Remember,
+        the learning is cumulative, so if you don't learn something, next week's
+        lab will seem harder.
+      </p>
+      
+      <h2>Exercise 1: Generating Arrays</h2>
+      <p>
+        Before you can do anything with arrays, you need to 
+        <span class="codeword">import numpy</span>: 
+      </p>
+      <div class="code"> 
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np 
+      </div>
+      <p>
+        This could cause you problems on your own computer if you did not
+        install Anaconda. Other Python distributions do not necessarily make
+        the <span class="codeword">numpy</span> library available. That means
+        that if you try to import it, it will not be found.
+      </p>
+        There are four ways we will generate arrays from scratch, using the
+        following four functions:
+      <p></p>
+      <div class="code"> 
+<span class="numpy">np.arange</span>(start, stop, step)
+<span class="numpy">np.linspace</span>(start, stop, numPoints)
+<span class="numpy">np.random.random</span>(number)
+<span class="numpy">np.zeros</span>(number) 
+      </div>
+      <p>
+        The first function, 
+        <span class="codeword"><span class="numpy">np.arange</span>,</span>
+        works like <span class="codeword">range</span>; you can have one, two
+        or three arguments when you call it. It differs from 
+        <span class="codeword">range</span>
+        in that you can use <span class="codeword">float</span>s as well as 
+        <span class="codeword">int</span>s for the arguments (although it is usually
+        better to use 
+        <span class="codeword"><span class="numpy">np.linspace</span></span>
+        instead when dealing with <span class="codeword">float</span>s). And it
+        produces an <span class="codeword">array</span> instead of a 
+        <span class="codeword">list.</span>
+        Calling <span class="codeword"><span class="numpy">np.arange</span></span>
+        with <span class="codeword">int</span> arguments is the only way we
+        will study to produce an <span class="codeword">array</span> of 
+        <span class="codeword">int</span>s.
+      </p>
+      <p>
+        Like 
+        <span class="codeword">
+          <span class="numpy">np.arange</span>,
+          <span class="numpy">np.linspace</span>
+        </span> produces an
+        <span class="codeword">array</span> with equally-spaced values. These
+        values are always <span class="codeword">float</span>s. Whereas 
+        <span class="codeword"><span class="numpy">np.arange</span></span>
+        uses <span class="codeword">step</span> to determine the separation of
+        the values in the <span class="codeword">array</span>, 
+        <span class="codeword numpy">np.linspace</span> determines the separation
+        by dividing <span class="codeword">(stop - start)</span> into 
+        <span class="codeword">(numPoints - 1)</span> equal-sized intervals. Unlike 
+        <span class="codeword"><span class="numpy">np.arange</span>,</span> the 
+        <span class="codeword">stop</span> value is always included in the resulting
+        <span class="codeword">array</span>. When you have a choice in producing an array
+        of <span class="codeword">float</span>s using either 
+        <span class="codeword numpy">np.arange</span> or
+        <span class="codeword numpy">np.linspace</span>,
+        use <span class="codeword numpy">np.linspace</span>.
+        It does a better job of finding the points that divide the interval into
+        equal sub-intervals.
+      </p>
+      <p>
+        The function 
+        <span class="codeword"><span class="numpy">np.random.random</span>(number)</span>
+        creates an array of <span class="codeword">number float</span>s between
+        <span class="codeword">0</span> and <span class="codeword">1.</span>
+        The function 
+        <span class="codeword"><span class="numpy">np.zeros</span>(number)</span>
+        creates an array of <span class="codeword">number float</span>s with
+        value <span class="codeword">0.0.</span>
+      </p>
+      <p class="todo">
+        Try the following examples.
+      </p>
+      <div class="code blk">
+<span class="keyword">list</span>(<span class="keyword">range</span>(15))          <span class="comment"># a list</span>
+
+<span class="numpy">np.arange</span>(<span class="literal">15</span>)            <span class="comment"># an int array</span>
+<span class="numpy">np.arange</span>(<span class="literal">100</span>, <span class="literal">111</span>)      <span class="comment"># 2 argument form</span>
+<span class="numpy">np.arange</span>(<span class="literal">0</span>, <span class="literal">1.1</span>, <span class="literal">0.1</span>)   <span class="comment"># 3 arguments, producing a float array</span>
+
+<span class="numpy">np.linspace</span>(<span class="literal">100</span>, <span class="literal">105</span>, <span class="literal">6</span>) <span class="comment"># linspace always produces floats</span>
+<span class="numpy">np.random.random</span>(<span class="literal">4</span>)      <span class="comment"># always produces floats</span>
+<span class="numpy">np.zeros</span>(<span class="literal">5</span>)              <span class="comment"># zeros always produces floats</span>
+                         <span class="comment"># is there an np.ones?</span>
+
+<span class="comment"># produce the same values with np.arange and np.linspace:</span>
+<span class="comment"># What value do you need in place of the question mark?</span>
+xa = <span class="numpy">np.arange</span>(<span class="literal">0.1</span>, <span class="literal">0.91</span>, <span class="literal">0.05</span>)
+xl = <span class="numpy">np.linspace</span>(<span class="literal">0.1</span>, <span class="literal">0.9</span>, <span class="literal">?</span>)
+<span class="function">print(</span> xa, <span class="grn">"\n"</span>, xl)
+
+<span class="comment"># but are they really equal?</span>
+<span class="function">print(</span> xa == xl)
+<span class="function">print(</span> xa[<span class="literal">0</span>] - xl[<span class="literal">0</span>], xa[<span class="literal">2</span>] - xl[<span class="literal">2</span>])
+<span class="comment"># Which of the two should you use?</span>
+      </div>
+      
+      
+      <h2>Exercise 2: Doing Arithmetic with Arrays</h2>
+      <p>
+        Remember that the <span class="codeword">+</span> sign could be used
+        to concatenate <span class="codeword">list</span>s, and that 
+        <span class="codeword">3 * xlist</span> would produce a new 
+        <span class="codeword">list</span>
+        that would contain three copies of the original contents of 
+        <span class="codeword">xlist</span>.
+        The <span class="codeword">numpy</span> library is intended for
+        numerical computation, where <span class="codeword">+</span> and 
+        <span class="codeword">*</span> are used for addition and multiplication.
+        For example: 
+      </p>
+      <div class="code">
+<span class="in">In [16]:</span> aa = <span class="numpy">np.arange</span>(<span class="literal">5</span>)
+
+<span class="in">In [17]:</span> bb = <span class="numpy">np.random.random</span>(5)
+<span class="in">In [18]:</span> aa + bb
+<span class="dkred">Out[18]:</span> array([ 0.32286583,  1.79606838,  2.38732838,  3.76611785,  4.03131223])
+
+<span class="in">In [19]:</span> aa * bb
+<span class="dkred">Out[19]:</span> array([0.         ,  0.79606838,  0.77465677,  2.29835354,  0.12524892])
+
+<span class="in">In [20]:</span> bb / aa
+__main__:1: RuntimeWarning: divide by zero encountered in true_divide
+<span class="dkred">Out[20]:</span> array([        inf,  0.79606838,  0.19366419,  0.25537262,  0.00782806])
+
+<span class="in">In [21]: </span>aa**40
+__main__:1: RuntimeWarning: invalid value encountered in power
+<span class="dkred">Out[21]:</span>
+array([                   0,                    1,        1099511627776,
+       -9223372036854775808, -9223372036854775808])
+<span class="in">In [22]:</span> aa &gt;= bb
+<span class="dkred">Out[22]:</span> array([False,  True,  True,  True,  True], dtype=bool)
+ 
+<span class="in">In [23]:</span> aa &lt;= bb
+<span class="dkred">Out[23]:</span> array([ True, False, False, False, False], dtype=bool)
+
+<span class="in">In [24]:</span> (aa &gt;= bb) <span class="boolean">and</span> (aa &gt;= bb)
+Traceback <span class="ltblue">(most recent call last)</span>:
+
+  <span class="ltblue">File</span> "<span class="fcn">&lt;ipython-input-33-3e6c41d4e114&gt;</span>", <span class="ltblue">line</span> 1, <span class="ltblue">in</span> <span class="boolean">&lt;module&gt;</span>
+    <span class="dkred">(aa &gt;= bb) and (aa &lt;= bb)</span>
+
+<span class="dkred">ValueError:</span>  The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+<span class="in">In [25]:</span> (<span class="numpy">np.logical_and</span>((aa &lt;= bb), (aa &gt;= bb))
+<span class="dkred">Out[24]:</span> array([False,  False,  False,  False,  False], dtype=bool)
+      </div>
+      <p class="todo">
+        Verify that the examples above illustrate the following points: 
+      </p>
+      <ol>
+        <li> 
+          all mathematical and comparison operators (i.e., 
+          <span class="codeword">+  - * / // % ** &lt; &lt;= == != &gt;== &gt;</span>) 
+          between numbers can be applied between <span class="codeword">array</span>s;
+        </li>
+        <li> 
+          these operators can also apply item-by-item between an 
+          <span class="codeword">array</span> and a simple numerical value (e.g., 
+          <span class="codeword">aa**40</span>)
+          with either one on left or right of the operator;
+        </li>
+        <li> 
+          operations between <span class="codeword">int array</span>s and 
+          <span class="codeword">float array</span>s (e.g., 
+          <span class="codeword">aa + bb, aa * bb</span>) produce 
+          <span class="codeword">float</span>s,
+          just as in regular Python expressions [note: because all entries in an
+          <span class="codeword">array</span> have to have the same type, the
+          result will be an <span class="codeword">array</span> of 
+          <span class="codeword">float</span>s];
+        </li>
+        <li> 
+          the numbers in <span class="codeword">array</span>s are not quite
+          like regular Python values; dividing by <span class="codeword">0</span>
+          in <span class="codeword">bb/aa</span> produces an 
+          <span class="codeword">inf</span>
+          (for infinity) value, and in <span class="codeword">aa**40</span>,
+          powers of <span class="codeword">int</span>s greater than about 9
+          quintillion overflow, yielding a negative number, rather than
+          producing the result.
+        </li>
+        <li> 
+          the boolean functions <span class="codeword">and</span>, 
+          <span class="codeword">or</span> and <span class="codeword">not</span> 
+          do <strong><em>not</em></strong>
+          apply between arrays; instead you can use 
+          <span class="codeword"><span class="numpy">np.logical_and</span>(xx,yy)</span>, 
+          <span class="codeword"><span class="numpy">np.logical_or</span>(xx,yy)</span>
+          and <span class="codeword"><span class="numpy">np.logical_not</span>(xx)</span>
+          to apply to boolean arrays <span class="codeword">xx</span> and 
+          <span class="codeword">yy</span>. In addition, the operators 
+          <span class="codeword">+</span>, <span class="codeword">-</span> and 
+          <span class="codeword">*</span> are defined between boolean arrays, giving a 
+          boolean array as a result. 
+          <span class="todo">
+            Figure out which logical operation between boolean arrays 
+            <span class="codeword">+</span>, <span class="codeword">-</span>
+            and <span class="codeword">*</span> represent (including the unary
+            operator, <span class="codeword">-xx</span>).
+          </span>
+        </li>
+      </ol>
+      <p class="todo">
+        In the main method of a script file, write code that produces the
+        following arrays:
+      </p>
+      <ul>
+        <li>
+          an <span class="codeword">array</span> of length 50 containing the
+          <em>reciprocals of positive integers</em>: 
+          <span class="codeword">
+            array([ 1. , 0.5 , 0.33333333, 0.25 , 0.2 , 0.16666667, ...0.02040816, 0.02 ])
+          </span> ;</li>
+        <li>
+          an <span class="codeword">array</span> of length 100 containing 
+          <em><span class="codeword">0</span> and <span class="codeword">1</span>
+          alternating</em>: 
+          <span class="codeword">array([0, 1, 0, 1, 0, 1, 0, ... 0, 1])</span>; 
+        </li>
+        <li>
+          an <span class="codeword">array</span> containing the 
+          <em>sum of the squares of the corresponding values</em> in 
+          <span class="codeword">aa</span> and <span class="codeword">bb</span>; 
+          that is, first <span class="codeword">aa[0]**2 + bb[0]**2,</span> then 
+          <span class="codeword">aa[1]**2 + bb[1]**2,</span> etc.; 
+        </li>
+        <li>
+          an <span class="codeword">array</span> containing the 
+          <em>
+            sine function evaluated at every degree from 
+            <span class="codeword">0°</span> to 
+            <span class="codeword">90°</span>
+          </em> 
+          [hint: <span class="codeword">numpy</span> has its own math functions, like 
+          <span class="codeword numpy">np.sqrt</span>,
+          <span class="codeword numpy">np.cos</span>, etc.].
+        </li>
+        <li>
+          an <span class="codeword">array</span> containing the 
+          <em>cumulative sums of the odd positive integers</em> from 1 to 25 
+          [hint: use <span class="codeword numpy">np.cumsum</span>.
+        </li>
+      </ul>
+      
+      
+      <h2>Exercise 3: Slices of Arrays</h2>
+      <p>
+        A <em>slice</em> of a <span class="codeword">list</span> consists of
+        a <span class="codeword">list</span> name followed by a selector, such
+        as: 
+      </p>
+      <div class="code">
+<span class="in">In [25]:</span> <span class="builtin">list(range</span>(100))[15:80:5]
+<span class="dkred">Out[25]:</span> [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75]
+      </div>
+      <p>
+        The first slice index gives the starting position of the slice. The
+        second gives the stopping condition; that position is 
+        <em><strong>never included in the slice</strong></em>. 
+        The third slice index says how big the steps are.
+      </p>
+      <p>
+        <span class="codeword">Array</span>s can be sliced in the same way that
+        <span class="codeword">list</span>s can, but there is a difference
+        between <span class="codeword">list</span> slices and 
+        <span class="codeword">array</span>
+        slices: A <span class="codeword">list</span> slice 
+        <em>assigned to a variable</em> 
+        is a <em><strong>copy</strong></em> of the
+        original data. If you change the new variable, you do not affect the
+        original data. In contrast, an <span class="codeword">array</span>
+        slice <em>assigned to a variable</em> is still a way of specifying a 
+        selection of values in the original 
+        <span class="codeword">array</span>. It is <em><strong>not a copy</strong></em>.
+      </p>
+      <p class="todo">
+        Try the following examples.
+      </p>
+      <div class="code">
+nums = <span class="builtin">list</span>(<span class="builtin">range</span>(<span class="literal">10</span>))
+nums[<span class="literal">5</span>:<span class="literal">9</span>:<span class="literal">2</span>] = [<span class="string">'a'</span>, <span class="string">'b'</span>] <span class="comment"># update a slice</span>
+<span class="grn">print(</span> nums)               <span class="comment"># the original list has been changed</span>
+nums2 = nums[<span class="literal">2</span>:<span class="literal">8</span>:<span class="literal">3</span>]      <span class="comment"># new copy of a slice</span>
+nums2[<span class="literal">1</span>] = <span class="literal">20</span>            <span class="comment"># update the new copy</span>
+<span class="grn">print(</span> nums2)
+<span class="grn">print(</span> nums)               <span class="comment"># changes to nums2 should not affect nums</span>
+
+nums = <span class="numpy">np.arange</span>(<span class="literal">10</span>)
+nums[<span class="literal">5</span>:<span class="literal">9</span>:<span class="literal">2</span>] = [<span class="string">'a'</span>, <span class="string">'b'</span>] <span class="comment"># causes error: can't assign a string to a numeric array</span>
+<span class="grn">print(</span> nums)               <span class="comment"># the original list, unchanged</span>
+nums2 = nums[<span class="literal">2</span>:<span class="literal">8</span>:<span class="literal">3</span>]      <span class="comment"># new copy of a slice</span> 
+nums2[<span class="literal">1</span>] = <span class="literal">20</span>            <span class="comment"># update the new copy</span>
+<span class="grn">print(</span> nums2)
+<span class="grn">print(</span> nums)               <span class="comment"># changes to nums2 DO affect nums</span> 
+      </div>
+      <p class="todo">
+        Write a script file with a main method to produce the following arrays:
+      </p>
+      <ul>
+        <li>
+          an <span class="codeword">array</span> of length 500 containing 200
+          integer zeros, increasing numbers 1 to 200, followed by 100 more
+          zeros: <span class="codeword">array([ 0, 0, 0, ... 0, 0, 1, 2, 3, ...
+            199, 200, 0, 0, ... 0, 0])</span> ;
+        </li>
+        <li>
+          an <span class="codeword">array</span> of length 100 containing
+          increasing sequences getting longer and longer: 
+          <span class="codeword">array([0, 0, 1, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4, 0, ... 6, 7, 8])</span>;
+        </li>
+        <li>
+          an <span class="codeword">array</span> containing the reciprocals
+          of the numbers from 1 to 10 followed by the same numbers in reverse
+          order: <span class="codeword">array([ 1. , 0.5 , 0.33333333, 0.25 ,
+          0.2 , 0.16666667, 0.14285714, 0.125 , 0.11111111, 0.1 , 0.1 ,
+          0.11111111, 0.125 , 0.14285714, 0.16666667, 0.2 , 0.25 , 0.33333333,
+          0.5 , 1. ])</span>.
+        </li>
+        <li>
+          an <span class="codeword">array</span> of length 100 containing the
+          number of divisors of the numbers from 1 to 100: 
+          <span class="codeword">array([1, 2, 2, 3, 2, 4, 2, 4, 3, ... 6, 6, 9])</span>. 
+          Hint: you can convert a list of integers to an array with 
+          <span class="codeword numpy">np.array</span>, or you can
+          create an array of integers with <span class="codeword numpy">np.arange</span>
+          and write over the entries one by one.
+        </li>
+      </ul>
+    </div>
+  
+
+
+</body><button id="javascript-popup-blocker-notify" style="display: none;"></button></html>
